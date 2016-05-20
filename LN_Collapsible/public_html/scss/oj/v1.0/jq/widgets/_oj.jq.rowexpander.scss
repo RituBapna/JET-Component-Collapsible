@@ -1,0 +1,43 @@
+@import "../../utilities/oj.utilities";
+
+$includeRowExpanderClasses:   $includeAllClasses !default;
+// todo: is this being used?
+
+// include dependencies
+@if $includeRowExpanderClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.icons";
+
+@import "../../common/widgets/oj.common.rowexpander";
+
+@if $includeRowExpanderClasses != false {
+  @include module-include-once("jq.rowexpander") {
+
+    //Alta uses the oj-fwk-icon-arrow03 for the expand/collapse icons whereas jq use oj-fwk-icon-arrow      
+      
+    /* Styling and content for the expand icon */
+    .oj-rowexpander-expand-icon{
+        @include oj-ltr() {
+            @extend .oj-fwk-icon-arrow-e;  
+        }
+
+        @include oj-rtl() {    
+            @extend .oj-fwk-icon-arrow-w;  
+        }    
+    }
+	
+    /* Styling and content for the collapse icon */
+    .oj-rowexpander-collapse-icon {
+        @include oj-ltr() {
+            @extend .oj-fwk-icon-arrow-se;  
+        }
+
+        @include oj-rtl() {    
+            @extend .oj-fwk-icon-arrow-sw;  
+        }    
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import "../../utilities/oj.utilities";
+
+$includeIconClasses: $includeAllClasses !default;
+
+@if $includeIconClasses != false {
+  @include module-include-once("jq.icons.base") {
+
+    .oj-fwk-icon {
+      @include oj-icon-base(                         
+           $height: 16px,                                               
+           $width:  16px);  
+    }
+
+    .oj-fwk-icon:before {
+      content: oj-image-url("ui-icons_222222_256x240.png");  
+    }                                     
+     
+    .oj-component-icon {
+      @extend .oj-fwk-icon;
+    }    
+
+    .oj-enabled .oj-fwk-icon, 
+    .oj-enabled.oj-fwk-icon,
+    a.oj-fwk-icon, 
+    a .oj-fwk-icon {
+      @include oj-icon-content(
+         $icon: oj-image-url("ui-icons_888888_256x240.png"));
+    }
+
+    .oj-hover .oj-fwk-icon, 
+    .oj-hover.oj-fwk-icon,
+    .oj-focus .oj-fwk-icon,
+    .oj-focus.oj-fwk-icon,
+    a:hover.oj-fwk-icon, 
+    a:hover .oj-fwk-icon {
+       @include oj-icon-content(
+           $icon: oj-image-url("ui-icons_454545_256x240.png"));
+    }
+
+    .oj-active .oj-fwk-icon, 
+    .oj-active.oj-fwk-icon,
+    .oj-selected .oj-fwk-icon,  
+    .oj-selected.oj-fwk-icon,
+    a:active.oj-fwk-icon, 
+    a:active .oj-fwk-icon {
+     @include oj-icon-content(
+         $icon: oj-image-url("ui-icons_454545_256x240.png"));
+    }
+
+    // todo: what about disabled
+  }
+}

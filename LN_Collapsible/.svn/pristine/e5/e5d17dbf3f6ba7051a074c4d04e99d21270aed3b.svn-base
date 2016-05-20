@@ -1,0 +1,527 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.button.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@import "../../utilities/oj.utilities";
+
+
+@if $includeButtonClasses != false {
+  @include module-include-once("common.button") {
+
+    /* button */
+    /* --------------------------------------------------------------- */
+
+    .oj-button { 
+        display: inline-block; 
+        // putting vertical align of middle makes it line up nicely with form controls.
+        vertical-align: middle;
+        padding: 0; 
+        border: 1px solid;   
+        
+        // Button spec says 3px spacing (i.e. margin) between buttons, so 1.5px margin on left and right.
+        // Since Buttons are inline-block, the spacing is approximately 3px whenever the HTML has any 
+        // whitespace between the elements, which is usually the case. Therefore leaving off left/right margins.
+        margin-bottom: $wrappableMarginBottom;
+        
+        cursor: default; 
+        text-align: center; 
+        white-space: nowrap; // needed on some flavors of ojButton to keep the text from wrapping and overflowing the button.
+                             // Could probably make specific to those flavors of Button if desired.  
+        //overflow: visible; /* removes extra width in IE */
+        @include oj-border-radius( $buttonBorderRadius );
+        @include oj-box-sizing-property(border-box);
+        height: $buttonHeight;
+        // the line-height is needed for the case where 
+        // you use an anchor tag to create the button, 
+        // otherwise the text isn't centered
+        line-height: $buttonHeight;
+        // font-size and font-family are needed for the
+        // case where you use a button tag to create
+        // the button, the font family and size aren't
+        // inherited on a button tag.
+        font-size: inherit;
+        font-family: inherit;
+        // can't set font-weight on oj-button-text class because oj-button-text 
+        // not used on inputs of type button, submit, and reset
+        font-weight: $buttonFontWeight;
+    } 
+
+    /* The label of radio and checkbox buttons */
+    .oj-button-label {
+        cursor: inherit; // follow oj-button's lead
+        display: inline-block; // make label fill up the container element so all clicks are captured by the label
+    }
+
+    /*button states, colors, etc.*/
+
+    .oj-button, 
+    .oj-button:link, 
+    .oj-button:visited, 
+    .oj-button:hover, 
+    .oj-button:active { 
+        text-decoration: none; 
+    }
+
+    .oj-button:focus {
+        outline:none; // e.g. Chrome adds blue outline to focused element
+    }
+
+    /* oj-default is applied iff the button is not in any of the other states, 
+       namely oj-active, oj-disabled, oj-selected, oj-hover, or oj-focus.
+       oj-focus-only is applied iff the button has oj-focus but not any of the other 4 states listed above.*/
+    .oj-button.oj-default,
+    .oj-button.oj-focus-only {
+        background-color: $buttonBgColor; 
+        @include oj-background-image($buttonBgImage);
+        border-color: $buttonBorderColor;   
+        color: $buttonTextColor;    
+        @include oj-box-shadow($buttonBoxShadow); 
+        // can't set text-shadow on oj-button-text class because oj-button-text 
+        // not used on inputs of type button, submit, and reset
+        text-shadow: $buttonTextShadow ;
+    }
+    
+    /* oj-button-icon.oj-start is applied to the button's start icon, if any.  
+       oj-button-icon.oj-end is applied to the button's end icon, if any.  */
+    // TBD: this rule wins over the font-weight / text-shadow specified in this button's 
+    // app-specified icon class iff we include the .oj-button hier selector as seen here.
+    // Which rule should win?
+    .oj-button .oj-button-icon {
+        font-weight: normal; 
+        text-shadow: none;
+    }
+
+    .oj-button.oj-default .oj-button-icon,
+    .oj-button.oj-focus-only .oj-button-icon {
+        color: $buttonIconColor; 
+    }
+
+    .oj-button.oj-hover {
+        background-color: $buttonBgColorHover;
+        @include oj-background-image($buttonBgImageHover);
+        border-color: $buttonBorderColorHover; 
+        color: $buttonTextColorHover;  
+        @include oj-box-shadow($buttonBoxShadowHover); 
+        // can't set text-shadow on oj-button-text class because oj-button-text 
+        // not used on inputs of type button, submit, and reset
+        text-shadow: $buttonTextShadowHover;
+    }
+
+    .oj-button.oj-focus {
+        @include oj-browser-focus-outline-approximation($buttonTextColor);
+    }
+
+    .oj-button.oj-hover .oj-button-icon {
+        color: $buttonIconColorHover; 
+    }
+
+    // active should trump hover
+    /* oj-active is applied to a push button when it is actively being held down 
+       by the mouse button or Enter or Spacebar. */
+    .oj-button.oj-active {
+        background-color: $buttonBgColorActive;
+        @include oj-background-image($buttonBgImageActive);
+        border-color: $buttonBorderColorActive;
+        color: $buttonTextColorActive;  
+        @include oj-box-shadow($buttonBoxShadowActive); 
+        // can't set text-shadow on oj-button-text class because oj-button-text 
+        // not used on inputs of type button, submit, and reset
+        text-shadow: $buttonTextShadowActive;
+    }
+
+    // active should trump hover
+    .oj-button.oj-active .oj-button-icon {
+        color: $buttonIconColorActive; 
+    }
+    
+    // selected mostly trumps hover (like active), but unlike active, the text/icon
+    // colors are a 3rd color different than the selected color and hover color
+    .oj-button.oj-selected {
+        background-color: $buttonBgColorSelected;
+        @include oj-background-image($buttonBgImageSelected);
+        border-color: $buttonBorderColorSelected;
+        color: $buttonTextColorSelected;  
+        @include oj-box-shadow($buttonBoxShadowSelected); 
+        // can't set text-shadow on oj-button-text class because oj-button-text 
+        // not used on inputs of type button, submit, and reset
+        text-shadow: $buttonTextShadowSelected;
+    }
+    
+    .oj-button.oj-selected.oj-hover {
+        color: $buttonTextColorSelectedHover;  
+    }
+    
+    .oj-button.oj-selected .oj-button-icon  {
+        color: $buttonIconColorSelected; 
+    }
+
+    .oj-button.oj-selected.oj-hover .oj-button-icon  {
+        color: $buttonIconColorSelectedHover; 
+    }
+
+    .oj-button.oj-disabled {
+        background-color: $buttonBgColorDisabled;
+        @include oj-background-image(none);
+        border-color: $buttonBorderColorDisabled;
+        color: $buttonTextColorDisabled;
+        cursor: default; // in case a themer sets clickable "hand" cursor on buttons, override it if disabled
+        opacity: $buttonOpacityDisabled;
+    }
+
+    .oj-button.oj-disabled .oj-button-icon  {
+        color: $buttonIconColorDisabled; 
+    }
+
+    // Unlike other occurrences of .oj-selected, these rules have no corresponding "active"
+    // rules, since disabled buttons can't be active (pressed down by mouse/Space/Enter).
+    .oj-button.oj-disabled.oj-selected,
+    .oj-button.oj-disabled.oj-selected.oj-button-half-chrome { // 6/2014:  still need this line for specificity
+        color: $buttonTextColorSelectedDisabled;
+        background-color: $buttonBgColorSelectedDisabled;
+        border-color: $buttonBorderColorSelectedDisabled;
+    }
+
+    .oj-button.oj-disabled.oj-selected .oj-button-icon {
+        color: $buttonIconColorSelectedDisabled;
+    }
+
+    /* Half-chrome buttons 
+     * Apps can apply the oj-button-half-chrome class to a Button to make it appear with no background or border.  
+     * Half-chrome buttons acquire chrome on hover and active/selected states.
+     */
+
+    .oj-button.oj-default.oj-button-half-chrome,
+    .oj-button.oj-focus-only.oj-button-half-chrome,
+    .oj-button.oj-disabled.oj-button-half-chrome {
+        border-color: transparent;
+        background-color: transparent;
+        @include oj-background-image(none);
+        @include oj-box-shadow(none);
+    }
+
+
+    .oj-button.oj-default.oj-button-half-chrome,
+    .oj-button.oj-focus-only.oj-button-half-chrome {
+        text-shadow: none;
+    }
+
+    .oj-button.oj-button-half-chrome {
+        font-weight: normal; // from menu spec, half-chrome button section
+    }
+
+    // whenever you don't have chrome icon colors should follow the 
+    // regular icon color spec instead of the button icon color spec
+    
+    .oj-button.oj-default.oj-button-half-chrome .oj-button-icon,
+    .oj-button.oj-focus-only.oj-button-half-chrome .oj-button-icon {
+        color: $iconColorDefault; 
+    }
+
+    .oj-button.oj-disabled.oj-button-half-chrome .oj-button-icon {
+        color: $iconColorDisabled; 
+    }
+    
+    // disabledSelected *does* have chrome, so use button, not regular, icon color
+    .oj-button.oj-disabled.oj-selected.oj-button-half-chrome .oj-button-icon {
+        color: $buttonIconColorSelectedDisabled;
+    }
+
+    /*button sizing and alignment*/
+    
+    .oj-button-icon {
+        vertical-align: middle;
+        // despite being vertically aligned, the icons don't seem to want to be 
+        // vertically centered so add a small margin to the bottom
+        margin-bottom: 3px;
+    }
+
+    /* The element containing the text of buttons without icons.  This is the Button (input element) 
+     * itself for <input type=button|submit|reset>, which doesn't support icons at all, and a nested span 
+     * for other types of Buttons.
+     */
+    input.oj-button[type="button"], // doesn't support icons
+    input.oj-button[type="submit"], // doesn't support icons
+    input.oj-button[type="reset"], // doesn't support icons
+    .oj-button-text-only .oj-button-text { // button types that do support icons but don't have any
+        padding: 0 $buttonTextToEdgePadding;
+    }
+
+    /* The text span of buttons with text, a left icon, but no right icon */
+    .oj-button-text-icon-start .oj-button-text {
+        @include oj-ltr() {
+            padding: 0 $buttonTextToEdgePadding 0 0;
+        }
+    }
+    .oj-button-text-icon-end .oj-button-text {
+        @include oj-rtl() {
+            padding: 0 $buttonTextToEdgePadding 0 0;
+        }
+    }
+
+    /* The text span of buttons with text, a right icon, but no left icon */
+    .oj-button-text-icon-end .oj-button-text {
+        @include oj-ltr() {
+            padding: 0 0 0 $buttonTextToEdgePadding;
+        }
+    }
+    .oj-button-text-icon-start .oj-button-text {
+        @include oj-rtl() {
+            padding: 0 0 0 $buttonTextToEdgePadding;
+        }
+    }
+
+    /* The text span of buttons with text and both icons */
+    .oj-button-text-icons .oj-button-text { 
+        padding: 0;
+    }
+
+    /* The left icon of buttons with text and a left icon, with or without a right icon */
+    .oj-button-text-icon-start .oj-button-icon.oj-start, 
+    .oj-button-text-icons .oj-button-icon.oj-start {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-ltr() {
+            margin-right: $buttonIconToTextPadding;
+            margin-left:  $buttonIconToEdgePadding;
+        }
+    }
+    .oj-button-text-icon-end .oj-button-icon.oj-end, 
+    .oj-button-text-icons .oj-button-icon.oj-end { 
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-rtl() {
+            margin-right: $buttonIconToTextPadding;
+            margin-left:  $buttonIconToEdgePadding;
+        }
+    }
+
+    /* The left icon of buttons with 2 icons and no text */
+    .oj-button-icons-only .oj-button-icon.oj-start {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-ltr() {
+            margin-right: $buttonIconToTextPadding;
+            margin-left:  $buttonIconToEdgePadding; // between-icon padding lives on left icon
+        }
+    }
+    .oj-button-icons-only .oj-button-icon.oj-end {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-rtl() {
+            margin-right: $buttonIconToTextPadding;
+            margin-left:  $buttonIconToEdgePadding; // between-icon padding lives on left icon
+        }
+    }
+
+    /* The icon of buttons with with 1 icon (whether start or end) and no text */
+    .oj-button-icon-only .oj-button-icon { 
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        margin-right: $buttonIconToEdgePadding;
+        margin-left:  $buttonIconToEdgePadding;
+    }
+
+    /* The right icon of buttons with text and a right icon, with or without a left icon */
+    .oj-button-text-icon-end .oj-button-icon.oj-end, 
+    .oj-button-text-icons .oj-button-icon.oj-end { 
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-ltr() {
+            margin-right: $buttonIconToEdgePadding;
+            margin-left: $buttonIconToTextPadding;
+        }
+    }
+    .oj-button-text-icon-start .oj-button-icon.oj-start, 
+    .oj-button-text-icons .oj-button-icon.oj-start {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-rtl() {
+            margin-right: $buttonIconToEdgePadding;
+            margin-left: $buttonIconToTextPadding;
+        }
+    }
+
+    /* The right icon of buttons with 2 icons and no text */
+    .oj-button-icons-only .oj-button-icon.oj-end {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-ltr() {
+            // between-icon padding lives on left icon, not this right icon
+            margin-right: $buttonIconToEdgePadding;
+        }
+    }
+    .oj-button-icons-only .oj-button-icon.oj-start {
+        // because this is a contextual selector it has a higher specificity,
+        // so using margin-right: and margin-left: instead of margin: so that
+        // it's easy for people to add some margins at the top/bottom
+        // to center images 
+        @include oj-rtl() {
+            // between-icon padding lives on left icon, not this right icon
+            margin-right: $buttonIconToEdgePadding; 
+        }
+    }
+
+
+    /* buttonsets */
+
+    .oj-buttonset { 
+        display: inline-block;
+        
+        // inline-block makes whitespace appear between the buttons if the html has any whitespace 
+        // between the tags.  We previously avoided this by removing all the text nodes at create time, but it caused 
+        // problems with the KO foreach binding.  To make the whitespace go away, we now set font size to 0.
+        // This means we have to set vertical-align to top, and must set the button font-size 
+        // explicitly below.
+        font-size: 0;
+        vertical-align: top;
+    }
+
+    .oj-buttonset .oj-button { 
+        @include oj-border-radius(0);
+        border-right-width: 0; // collapse borders between buttons.  We restore the last button's right border below.
+
+      // This rule does not override .oj-button's margin-bottom, which IIUC is to make form controls line up.  
+      // Reason: it's just as valid to place a whole buttonset of buttons next to form controls, or next to other JET Buttons.
+        margin-left: 0; 
+        margin-right: 0;
+        
+        font-size: $fontSize; // see above comment about inline-block whitespace
+    }
+
+    .oj-buttonset .oj-button.oj-button-half-chrome { 
+        border-right-width: 1px; // Half-chrome buttons in a buttonset can't share borders, since only one button 
+                                 // at a time has its chrome (including border) visible.
+    }
+    
+    /* .oj-buttonset-corner-start is applied to the first button of the buttonset. */
+    .oj-button.oj-buttonset-corner-start {
+        @include oj-ltr() {
+          border-radius: $buttonBorderRadius 0 0 $buttonBorderRadius;
+        }
+        @include oj-rtl() {
+          border-right-width: 1px; // restore the last button's right border
+          border-radius: 0 $buttonBorderRadius $buttonBorderRadius 0;
+        }
+
+        @include oj-border-radius-slowoverride();
+    }
+
+    /* .oj-buttonset-corner-end is applied to the last button of the buttonset. */
+    .oj-button.oj-buttonset-corner-end {
+        @include oj-ltr() {
+          border-right-width: 1px; // restore the last button's right border
+          border-radius: 0 $buttonBorderRadius $buttonBorderRadius 0;
+        }
+        @include oj-rtl() {
+          border-radius: $buttonBorderRadius 0 0 $buttonBorderRadius;
+        }
+
+        @include oj-border-radius-slowoverride();
+    }
+    
+    // The button of a single-button buttonset has all 4 corners rounded.
+    // Need the .oj-buttonset for specificity.
+    .oj-buttonset .oj-button.oj-buttonset-corner-start.oj-buttonset-corner-end {
+        @include oj-border-radius( $buttonBorderRadius);
+    }
+
+    /* "Internal" Buttonset borders (those *between* buttonset buttons) */
+    
+    // The border *between* buttonset buttons is a different color than when not in a buttonset, only if 
+    // the button owning the border (the right button) is active or selected or selectedHover or selectedDisabled.
+    // Its focused state doesn't affect the decision.
+    // Note that half-chrome buttons have chrome in all of these states.
+    // 
+    // This specially colored border is the right button's left border.  
+    // For full-chrome buttons, that's the shared border (the left button has no right border).
+    // For half-chrome buttons, both buttons have a border; the left button's right border is its normal color.
+    
+    .oj-button:not(.oj-buttonset-corner-start).oj-active {
+        @include oj-ltr() {
+            border-left-color: $buttonInternalBorderColorActive;
+        }
+    }
+
+    .oj-button:not(.oj-buttonset-corner-end).oj-active {
+         @include oj-rtl() {
+            border-left-color: $buttonInternalBorderColorActive;
+         }
+    }
+	
+    // affects both selected and selectedHovered as desired
+    .oj-button:not(.oj-buttonset-corner-start).oj-selected {
+        @include oj-ltr() {
+            border-left-color: $buttonInternalBorderColorSelected;
+        }
+    }
+
+    // affects both selected and selectedHovered as desired
+    .oj-button:not(.oj-buttonset-corner-end).oj-selected {
+         @include oj-rtl() {
+            border-left-color: $buttonInternalBorderColorSelected;
+         }
+    }
+	
+    .oj-button:not(.oj-buttonset-corner-start).oj-selected.oj-disabled {
+        @include oj-ltr() {
+            border-left-color: $buttonInternalBorderColorSelectedDisabled;
+        }
+    }
+
+    .oj-button:not(.oj-buttonset-corner-end).oj-selected.oj-disabled {
+         @include oj-rtl() {
+            border-left-color: $buttonInternalBorderColorSelectedDisabled;
+         }
+    }
+	
+	    /* workarounds */
+
+    /* reset extra padding in Firefox, see h5bp.com/1 */
+    input.oj-button::-moz-focus-inner,
+    button.oj-button::-moz-focus-inner { 
+        border: 0; 
+        padding: 0; 
+    }
+
+    // High Contrast
+    //--------------------------------------------
+    // in high contrast mode bump up the focus outline size to 
+    // make it easier to see
+    .oj-hicontrast .oj-button.oj-focus {
+      outline-width: 3px;
+    }
+
+    // a selected button will have a more prominent border
+    .oj-hicontrast .oj-button.oj-selected {
+      border-style: double;
+      border-width: 3px;
+    }
+
+    // a disabled button will have a less prominent border
+    .oj-hicontrast .oj-button.oj-disabled {
+      border-style: dotted;
+    }
+
+    .oj-hicontrast .oj-button.oj-disabled.oj-selected {
+      border-width: 2px;
+    }
+  }
+}

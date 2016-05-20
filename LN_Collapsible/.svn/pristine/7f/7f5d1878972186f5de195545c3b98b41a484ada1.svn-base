@@ -1,0 +1,151 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.dialog.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@import "../../utilities/oj.utilities";
+
+@if $includeDialogClasses != false {
+  @include module-include-once("common.dialog") {
+    
+    /* dialog */
+    /* --------------------------------------------------------------- */
+
+    .oj-dialog { 
+      width: 300px;
+      min-width: 200px;
+      height: auto;
+      // note: min-height overrides height auto, so do not 
+      //       specify min-height in combination with height:auto
+      position: absolute;
+      display: block; 
+      overflow: hidden;
+      z-index: $dialogZindex;
+    }
+
+    .oj-dialog-header {     
+      position: relative;
+    }
+
+    .ui-draggable .oj-dialog-header { 
+      cursor: move; 
+    }
+
+    /* When the close icon is not rendered, this class centers the header text and adds padding */
+    .oj-dialog-header-without-close-icon { 
+      padding-bottom: 6px;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+
+    /* Creates a larger touch area for the close icon */
+    .oj-dialog-header-close-wrapper { 
+      @include oj-ltr() {
+         float: right;
+      }
+      @include oj-rtl() {    
+         float: left;
+      }
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .oj-dialog-title {
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .ui-draggable .oj-dialog-title { 
+      cursor: move; 
+    }
+
+   .oj-dialog-close-icon { 
+     @include oj-border-radius( $buttonBorderRadius );
+     cursor: pointer;
+     border-width: 1px; 
+     border-style: solid;
+     color: $buttonIconColor;   
+     // We have a 1px border for active/hover, so make it transparent when inactive. 
+     border-color: transparent;
+
+    }
+
+    // todo: focus buttons no longer have hover styling, please talk to Jim about this
+    // answer: will update once Jim revises butons with new focus style.
+    .oj-hover .oj-dialog-close-icon,
+    .oj-focus .oj-dialog-close-icon {
+      background-color: $buttonBgColorHover;
+      @include oj-background-image($buttonBgImageHover);
+      border-color: $buttonBorderColorHover; 
+      color: $buttonIconColorHover;
+      @include oj-box-shadow($buttonBoxShadowHover); 
+    }
+
+    .oj-active .oj-dialog-close-icon {
+      background-color: $buttonBgColorActive;
+      @include oj-background-image($buttonBgImageActive);
+      border-color: $buttonBorderColorActive;
+      color: $buttonIconColorActive;  
+      @include oj-box-shadow($buttonBoxShadowActive); 
+     }
+
+    .oj-dialog-content > p:last-child {
+       margin-bottom: 0;
+     }
+
+    .oj-dialog-content {
+       overflow: auto;
+       position: relative;
+     }
+
+    .oj-dialog-body { 
+      position: relative; 
+      overflow: auto;   
+    }
+
+   // optional footer separator
+   //------------------------------------------
+    .oj-dialog-footer-separator {
+      border-width: 1px 0 0;
+      border-style: solid;
+      border-color: $dialogBorderColor;
+    }   
+
+    .oj-dialog-footer {
+      padding-top: 10px;
+      // Buttons include $wrappableMarginBottom of bottom padding.
+      padding-bottom: 10px - $wrappableMarginBottom;
+      padding-right: 10px;
+      padding-left: 10px;
+      @include oj-ltr() {
+         text-align: right;
+      }
+      @include oj-rtl() {    
+         text-align: left;
+      }
+    }
+
+    /* overlay used to hide inactive content for modal dialogs */
+    .oj-dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $overlayBgColor;
+      opacity: .3;
+      z-index: $dialogZindex;
+    }
+
+// todo: this isn't what I was expecting, can I see a demo of this?
+// answer: demo available
+    /* for use with the progress bar */
+    .oj-dialog-body-header {
+        margin-top: -1px;
+        width: 100%;
+     }
+
+  }
+}

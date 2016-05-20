@@ -1,0 +1,17 @@
+@import "../../utilities/oj.utilities";
+
+$includeThematicMapClasses:   $includeDvtClasses !default;
+
+// include dependencies
+@if $includeThematicMapClasses != false {
+  $includeDvtBaseClasses:              true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.dvt.base"; 
+@import "../../common/widgets/oj.common.dvt.thematicmap"; 
+
+@if $includeThematicMapClasses != false  {
+  @include module-include-once("jq.thematicmap") {
+  }
+}

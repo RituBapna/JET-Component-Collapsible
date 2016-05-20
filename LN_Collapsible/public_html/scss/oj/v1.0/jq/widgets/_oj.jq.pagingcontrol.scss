@@ -1,0 +1,63 @@
+@import "../../utilities/oj.utilities";
+
+$includePagingControlClasses:  $includeAllClasses !default;
+
+// include dependencies
+@if $includePagingControlClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "oj.jq.icons";
+
+
+@import "../../common/widgets/oj.common.pagingcontrol"; 
+
+@if $includePagingControlClasses != false {
+  @include module-include-once("jq.pagingcontrol") {
+    
+    /* Styling for the page mode navigation first page arrow icon. */
+    .oj-pagingcontrol-nav-first-icon {
+      padding: 5px;
+      @include oj-ltr() {    
+        @extend .oj-fwk-icon-caret-w;
+      }
+      @include oj-rtl() {    
+        @extend .oj-fwk-icon-caret-e;
+      }
+    }
+
+    /* Styling for the page mode navigation previous page arrow icon. */
+    .oj-pagingcontrol-nav-previous-icon {
+      padding: 5px;
+      @include oj-ltr() {    
+        @extend .oj-fwk-icon-caret-w;
+      }
+      @include oj-rtl() {    
+        @extend .oj-fwk-icon-caret-e;
+      }
+    }
+
+    /* Styling for the page mode navigation next page arrow icon. */
+    .oj-pagingcontrol-nav-next-icon {
+      padding: 5px;
+      @include oj-ltr() {    
+        @extend .oj-fwk-icon-caret-e;
+      }
+      @include oj-rtl() {    
+        @extend .oj-fwk-icon-caret-w;
+      }
+    }
+
+    /* Styling for the page mode navigation last page arrow icon. */
+    .oj-pagingcontrol-nav-last-icon {
+      padding: 5px;
+      @include oj-ltr() {    
+        @extend .oj-fwk-icon-caret-e;
+      }
+      @include oj-rtl() {    
+        @extend .oj-fwk-icon-caret-w;
+      }
+    }
+
+  }
+}

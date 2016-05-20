@@ -1,0 +1,326 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.tree.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@import "../../utilities/oj.utilities";  
+
+@if $includeTreeClasses != false  {
+  @include module-include-once("common.tree") {
+
+// todo: hover causes jumping in the giant theme
+
+// todo: only the border color should be set, not the border itself in the variables, for example
+//                $treeTextBorderSelected should be $treeTextBorderColorSelected
+
+
+// todo: you still seem to be using a sprite, we're not using sprites in jet, the tree spec should have the images you need. We're not using background images either, please test this in high contrast mode to see the issue.
+// http://aseng-wiki.us.oracle.com/asengwiki/display/ASDevJDeveloper/JET+Theming+Internal+Developers#JETThemingInternalDevelopers-HighContrast
+
+
+    /* tree */
+    /* --------------------------------------------------------------- */
+
+    /*  Base styles for tree, nodes, and node children  */
+    .oj-tree-list,
+    .oj-tree-list ul,
+    .oj-tree-list li {
+       display: block;
+       margin: 0 ;
+       padding: 0;
+       list-style-type: none;
+    }
+
+    /*  Basic node  */ 
+    .oj-tree-list li {
+       min-height: 22px;
+       white-space: nowrap;
+       // todo: this margin seems to affect even the first level of items, don't think it should do that
+       margin-left: 18px;
+       min-width: 18px;
+       margin-bottom: 2px ;
+    }
+
+    /*  Base node def for RTL */
+    // todo: we aren't doing rtl like this.
+    //http://aseng-wiki.us.oracle.com/asengwiki/display/ASDevJDeveloper/JET+Theming+Internal+Developers#JETThemingInternalDevelopers-RighttoLeft
+    .oj-tree-rtl li {
+       margin-left: 0;
+       margin-right: 18px;
+    }
+
+    /*  Node margin (LTR)  */
+    .oj-tree-list > ul > li {
+       margin-left: 0;
+    }
+
+    /*  Node margin (RTL)  */
+    .oj-tree-rtl > ul > li {
+       margin-right: 0;
+    }
+
+    /* Allow some extra space before the top child of a parent */ 
+    // todo: there is also a :first-child which might be easier to understand 
+    .oj-tree-list ul > li:nth-child(1) {
+       margin-top: 4px;
+    }
+
+    /*  Disclosure and node icons */
+    // todo: in general I'm letting people style ul/li and sometimes 'a' because these are 
+    // pretty much required for accessibility, but it also ties you to the current dom.
+    // don't think we should rely on ins tag, please use a class instead.
+    .oj-tree-list ins {
+       display: inline-block;
+       text-decoration: none;
+       width: 18px;
+       height: 18px;
+       margin: 0;
+       padding: 0;
+    }
+
+    /*  Node anchor */
+    .oj-tree-list a {
+       box-sizing: content-box;
+       display: inline-block;
+       white-space: nowrap;
+       text-decoration: none;
+       margin: 0;
+    }
+
+    /*  No focus effect */
+    .oj-tree-list a:focus {
+       outline: none;
+    }
+
+    /*  Node icon  */
+    .oj-tree-list a > ins {
+       height: 18px;
+       width: 16px;
+    }
+
+    /*  node icon LTR/RTL margins  */
+    // todo: in general I'm not a fan of using not, as it can only be used with one class, what if more are added later?   why do you have a different margin for disc though? can't they both use .25em?
+    .oj-tree-list .oj-tree-icon:not(.oj-disc) {
+       @include oj-ltr() {
+          margin-left: 0.250em;
+          margin-right: 0;
+
+       }
+       @include oj-rtl() {
+          margin-right: 0.250em;
+       }
+    }
+    .oj-tree-list .oj-disc {
+       @include oj-ltr() {
+          margin-right: 3px;
+       }
+       @include oj-rtl() {
+          margin-left: 3px;
+       }
+    }
+
+    /*  Expanded node children */
+    li.oj-expanded > ul {
+       display: block;
+    }
+
+    /*  Collapsed parent node */
+    li.oj-collapsed > ul {
+       display: none;
+    }
+
+    /*  Expanded/collapsed parent node icon cursor */
+    li.oj-expanded  > ins,
+    li.oj-collapsed > ins {
+       cursor: pointer;
+    }
+
+    /*  standard cursor over a node icon */
+    li.oj-tree-leaf > ins:not(.oj-tree-disc) {
+       cursor: default;
+    }
+
+    /*  The default sprite strip for node icons */
+    .oj-tree-list a > ins {
+       background-image: oj-image-url("tree_sprites.png");
+       background-repeat: no-repeat;
+       background-color: transparent;
+    }
+
+    /*  Node text */
+    // todo: again, please remove any contextual selectors in the entire file, 
+    // for example why do you need ".oj-tree-list span" at the front? If you need the 
+    //   ".oj-tree-list" you probably don't need the span. 
+    // You don't want to put implementation details liket he fact you use a span in the css
+    .oj-tree-list span.oj-tree-title {
+       border: 1px solid transparent;
+       color: $treeTextColor;
+       cursor: pointer;
+       font-family: $fontFamily;
+       font-size: $fontSize;
+       @include oj-ltr() {
+          margin-left: 0.250em;
+       }
+       @include oj-rtl() {
+          margin-right: 0.250em;
+      }
+    }
+
+    /*  Active node text  */
+    .oj-tree-list .oj-hover span.oj-tree-title {
+       font-weight: bold;
+       border:  $treeTextBorderHover;
+       background-color: $treeTextBgColorHover;
+      padding: 0 1px 0 0 ;
+    }
+
+    /*  Selected node text  */
+    .oj-tree-list a.oj-selected  span.oj-tree-title {
+       background-color: $treeTextBgColorSelected;
+       font-weight: bold;
+       border: $treeTextBorderSelected;
+    }
+
+    /*  Selected inactive node text  */
+   .oj-tree-list a.oj-selected.oj-tree-inactive span.oj-tree-title {
+       background-color: $treeTextBgColorSelectedInactive;
+       border: $treeTextBorderSelectedInactive;
+       padding: 0 1px 0 0 ;
+    }
+
+    /*  active and selected node text  */
+    .oj-tree-list a.oj-hover.oj-selected span.oj-tree-title {
+       font-weight: bold;
+       background-color: $treeTextBgColorHoverSelected;
+       border:  $treeTextBorderHoverSelected;
+       padding: 0 1px 0 0 ;
+    }
+//todo: the icons should have their own names, see the collapsible for how to name these
+    /*  Default collapsed parent image  */
+    .oj-tree-list .oj-collapsed > a .oj-tree-icon {
+       background-position: -55px -19px;
+    }
+
+    /*  Default expanded parent image */
+    .oj-tree-list .oj-expanded > a .oj-tree-icon {
+       background-position: -72px -53px;
+    }
+
+    /*  Default leaf node image */
+    .oj-tree-no-dots .oj-tree-leaf a ins.oj-tree-icon {
+       background-position: -72px -91px;
+    }
+
+    /*  Animated node "loading" icon  */
+    .oj-tree-list a.oj-tree-loading > ins.oj-tree-icon {
+    // todo: please see how this is done in datagrid
+       background-image: oj-common-image-url("node_anim.gif");
+       background-repeat: no-repeat;
+       background-position: 0 0;
+       vertical-align: middle;
+    }
+
+    /*  icon alignment with node text  */
+    .oj-tree-list ins.oj-tree-icon {
+        vertical-align: middle;
+    }
+
+    .oj-tree-list span.oj-tree-title {
+        vertical-align: -10%;
+    }
+
+    /*  No node icons to be displayed option icons:false */
+    .oj-tree-no-icons a .oj-tree-icon {
+       display:none;
+    }
+
+    /*  Disabled  */
+    // todo: there is a marker for disabled, oj-disabled
+    .oj-tree-locked ins.oj-tree-disc  {
+       color: $textColorDisabled;
+       cursor: not-allowed;
+    }
+
+
+// todo: why is the name ojtreeu?
+// todo: see mail with andy for dnd markers
+    /*  Base node drag (reorder) */ 
+    .ojtreeu-dragged {
+       display: block;
+       margin: 0;
+       padding: 4px 4px 4px 24px;
+       position: absolute;
+       top: -2000px;
+       line-height: 16px;
+    }
+
+    /*  Base node drag (reorder) text */
+    .ojtreeu-dragged ins {
+       display: block;
+       text-decoration: none;
+       width: 16px;
+       height: 16px;
+       margin: 0;
+       padding: 0;
+       position: absolute;
+       top: 4px;
+       left: 4px;
+       @include oj-border-radius($largeBorderRadius);
+    }
+
+    /* Node drag drop point feedback image for can drop here  */
+    .ojtreeu-dragged ins.oj-tree-ok {
+       background: oj-image-url("tree_sprites.png") -2px -53px no-repeat;
+    }
+
+    /* Node drag drop point feedback image for can't drop here  */
+    .ojtreeu-dragged ins.oj-tree-invalid {
+       background: oj-image-url("tree_sprites.png") -18px -53px no-repeat;
+    }
+
+    /* Dnd reorder insert pointer image (for LTR) */
+    .oj-tree-marker {
+       padding: 0;
+       margin: 0;
+       font-size: $fontSize;
+       overflow: hidden;
+       height: 12px;
+       width: 8px;
+       position: absolute;
+       top: -30px;
+       background-repeat: no-repeat;
+       display: none;
+       background-color: $treeDndMarkerBgColor;
+       text-shadow: $treeDndTextShadow;
+       color: $treeDndTextColor;
+       line-height: 10px;
+       background: oj-image-url("tree_sprites.png") -41px -56px no-repeat;
+       text-indent: -100px;
+    }
+
+    /* Dnd reorder insert pointer image (for RTL) */
+    .oj-tree-marker-rtl {
+       background: oj-image-url("tree_sprites.png") -59px -56px no-repeat;
+    }
+
+    /*  Dnd reorder insert pointer line when dropping between nodes  */
+    .oj-tree-marker-line {
+       padding: 0;
+       margin: 0;
+       line-height: 0;
+       font-size: 1px;
+       overflow: hidden;
+       height: 1px;
+       width: 100px;
+       position: absolute;
+       top: -30px;
+       background-repeat: no-repeat;
+       display: none;
+       background-color: $treeDndMarkerLineBgColor;
+       cursor: pointer;
+       border-left: 0;
+       @include oj-border-radius($smallBorderRadius);
+     }
+  }
+}

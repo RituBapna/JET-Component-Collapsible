@@ -1,0 +1,304 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.table.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@import "../../utilities/oj.utilities";
+
+@if $includeTableClasses != false  {
+  @include module-include-once("common.table") {
+
+    /* table */
+    /* --------------------------------------------------------------- */
+
+    /* Styling for the root component element. */
+    .oj-table {
+       position: relative;
+       line-height: normal;
+       background-color: $dataGridBgColor;
+       border: 1px solid $dataGridBorderColor;
+    }
+    
+    /* Styling for the root component element when focused. */
+    .oj-table.oj-focus {
+       outline: $formControlLabelColor dotted thin;
+    }
+
+    /* Styling for the component div container element. */
+    .oj-table-container {
+       @include oj-box-sizing-property(border-box);
+    }
+    
+    /* Styling for HTML table element. */
+    table.oj-table-element {
+       @include oj-box-sizing-property(border-box);
+       min-height: 300px;
+       min-width: 300px;
+       outline: none;
+       border-collapse: collapse;  
+       border-spacing: 0;
+    }
+
+    /* Styling for the column header elements. */
+    .oj-table-column-header-cell {
+       color: $dataGridHeaderTextColor;
+       font-size: $dataGridHeaderFontSize;
+       font-weight: $dataGridHeaderFontWeight;
+       border-right: 1px solid $dataGridHeaderBorderColor;
+       border-bottom: 1px solid $dataGridHeaderBorderColor;
+       background-color: $dataGridHeaderBgColor;
+       float: none;
+       min-height: $dataGridHeaderFontSize;
+       padding: $dataGridHeaderPadding;
+       @include oj-box-sizing-property(content-box);
+    }
+    
+    /* Styling to remove the right border of the last column header. */
+    .oj-table-column-header-cell:last-child {
+       border-right: 0;
+    }
+
+    /* Styling for the column header elements in selected state when table focused. */
+    .oj-table.oj-focus .oj-table-column-header-cell.oj-selected {
+       background-color: $dataGridHeaderBgColorSelected;
+    }
+
+    /* Styling for the column header elements in selected state when table not focused. */
+    .oj-table-column-header-cell.oj-selected {
+       background-color: $dataGridHeaderBgColorSelectedInactive;
+    }
+
+    /* Styling for the column header element in focused state. */
+    .oj-table-column-header-cell.oj-focus {
+       background-color: $dataGridHeaderBgColorFocus;
+    }
+    
+    /* Styling for the data cell elements in hover state. */
+    .oj-table-column-header-cell.oj-hover {
+       background-color: $dataGridHeaderBgColorHover;
+    }
+
+    /* Styling for the column header element. */
+    .oj-table-column-header {
+      white-space: nowrap;
+      position: relative;
+      height: 1.5 * $fontSize;
+      float: none;
+      @include oj-ltr() {
+       text-align: left;
+      }
+      @include oj-rtl() {    
+       text-align: right; 
+      }
+    }
+
+    /* Styling for the column header text. */
+    .oj-table-column-header-text {
+      display: inline-block;
+      height: inherit;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.5rem;
+      vertical-align: top;
+    }
+
+    /* Styling for the column header sort ascending element. */
+    .oj-table-column-header-asc {
+      position: absolute;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: top;
+      top: -2px;
+      @include oj-ltr() {
+       right: -5px;
+      }
+      @include oj-rtl() {    
+       left: -5px;
+      }
+    }
+
+    /* Styling for the column header sort descending element. */
+    .oj-table-column-header-dsc {
+      position: absolute;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: top;
+      top: -2px;
+      @include oj-ltr() {
+       right: -5px;
+      }
+      @include oj-rtl() {    
+       left: -5px;
+      }
+    }
+    
+    /* Styling for the column header sort ascending element in disabled state. */
+    .oj-table-column-header-asc.oj-disabled {
+      display: none;
+    }
+
+    /* Styling for the column header sort descending element in disabled state. */
+    .oj-table-column-header-dsc.oj-disabled {
+      display: none;
+    }
+
+    /* Styling for the column header sort icons. */
+    .oj-table-column-header-asc-icon,
+    .oj-table-column-header-dsc-icon {
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      position: absolute;
+      text-decoration: none;
+    } 
+    
+    /* Styling for the column header sort icons in hover state. */
+    .oj-table-column-header-asc-icon.oj-hover,
+    .oj-table-column-header-dsc-icon.oj-hover {
+      text-decoration: none;
+    } 
+
+    /* Icon for column header sort ascending in enabled state. */
+    // We also render oj-clickable-icon on the icon, 
+    // so the hover/active/etc colors come from there
+    .oj-table-column-header-asc-icon {
+      @extend .oj-fwk-icon-arrow-n;
+    } 
+
+    /* Icon for column header sort ascending in disabled state. */
+    .oj-table-column-header-asc-icon.oj-disabled {
+      visibility: hidden;
+    } 
+
+
+    /* Icon for column header sort descending */
+    // We also render oj-clickable-icon on the icon, 
+    // so the hover/active/etc colors come from there
+    .oj-table-column-header-dsc-icon {
+      @extend .oj-fwk-icon-arrow-s;
+    } 
+
+    /* Icon for column header sort descending in disabled state. */
+    .oj-table-column-header-dsc-icon.oj-disabled {
+      visibility: hidden;
+    } 
+
+    /* Styling for the data cell elements. */
+    .oj-table-data-cell {
+       background-color: $dataGridCellBgColor;
+       color: $dataGridCellTextColor; 
+       font-size: $fontSize;
+       font-weight: normal;
+       min-height: $fontSize;
+       min-width: $fontSize;
+       padding: $dataGridCellPadding;
+       float: none;
+       @include oj-ltr() {
+         text-align: left;
+       }
+       @include oj-rtl() {    
+         text-align: right; 
+       }
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+       @include oj-box-sizing-property(content-box);
+    }
+    
+    /* Styling to remove the right border of the last data cell. */
+    .oj-table-data-cell:last-child {
+       border-right: 0;
+    }
+
+    /* Styling for the data cell elements in selected state when table focused. */
+    .oj-table.oj-focus .oj-table-data-cell.oj-selected {
+       background-color: $dataGridCellBgColorSelected;
+    }
+    
+    /* Styling for the data cell elements in selected state when table in high contrast mode. */
+    .oj-hicontrast .oj-table-data-cell.oj-selected {
+       border: 3px double;
+    }
+
+    /* Styling for the data cell elements in selected state when table not focused. */
+    .oj-table-data-cell.oj-selected {
+       background-color: $dataGridCellBgColorSelectedInactive;
+    }
+
+    /* Styling for the data cell elements in focused state. */
+    .oj-table-data-cell.oj-focus {
+       background-color: $dataGridCellBgColorFocus;
+    }
+
+    /* Styling for the data cell elements in focus state when table in high contrast mode. */
+    .oj-hicontrast .oj-table-data-cell.oj-focus {
+       outline-width: 2px;
+       outline-style: dotted;
+    }
+
+
+    /* Styling for the data cell elements in hover state. */
+    .oj-table-data-cell.oj-hover {
+       background-color: $dataGridCellBgColorHover;
+    }
+    
+    /* Styling for the footer row. */
+    .oj-table-footer-row {
+        position: relative;
+    }
+    
+    /* Styling for the footer cells. */
+    .oj-table-footer-cell {
+       background-color: $dataGridHeaderBgColor;
+       float: none;
+       min-height: $dataGridHeaderFontSize;
+       border-top: 1px solid $dataGridBorderColor;
+       padding: $dataGridHeaderPadding;
+       @include oj-box-sizing-property(content-box);
+    }
+    
+    /* Styling for the vertical grid lines. */
+    .oj-table-footer-cell-vgrid-lines {
+       border-right: 1px solid $dataGridBorderColor;
+    }
+    
+    /* Styling for the vertical grid lines. */
+    .oj-table-vgrid-lines {
+       border-right: 1px solid $dataGridCellBorderColor;
+    }
+
+    /* Styling for the horizontal grid lines. */
+    .oj-table-hgrid-lines {
+       border-bottom: 1px solid $dataGridCellBorderColor;
+    }
+    
+    /* Styling for the status message. */
+    // InfoBackground & InfoText are CSS2 system colors
+    .oj-table-status-message {
+      background-color: InfoBackground;
+      color: InfoText;
+      border: 1px $dataGridCellBorderColor solid;
+      padding: $dataGridHeaderPadding;
+      position: relative;
+    } 
+
+    /* Styling for the No Data message. */
+    .oj-table-no-data-message {
+      color: $textColor;
+      padding: $dataGridHeaderPadding;
+      position: relative;
+    } 
+    
+    /* Styling for a panel that can attach to the bottom of the table 
+       and match the table colors. An app developer can put a paging control
+       in a div with this class, for example. */
+    .oj-table-panel-bottom {
+       border-style: solid;
+       border-color: $dataGridBorderColor; 
+       border-width: 0 1px 1px;
+       background-color: $dataGridBgColor; 
+    }
+  }
+}

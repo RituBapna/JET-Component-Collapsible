@@ -1,0 +1,50 @@
+// !!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your theme's directory, 
+//          for example alta/widgets/_oj.alta.dvt.gauge.scss
+// !!!
+@import "../../utilities/oj.utilities";
+
+@if $includeGaugeClasses != false {
+  @include module-include-once("common.gauge") {
+    
+    .oj-dialgauge {
+      width:200px;
+      height:200px;
+    }
+
+    .oj-ledgauge {
+      width:40px;
+      height:40px;
+    }
+
+    .oj-statusmetergauge {
+      width:220px;
+      height:25px;
+    }
+
+    .oj-ratinggauge {
+      width:120px;
+      height:25px;
+    }
+
+    .oj-gauge-metric-label {
+      font-weight: bold;
+    }
+    
+    .oj-gauge-tick-label {
+    }
+
+    .oj-gauge-threshold1 {
+      color: $dvtThreshold1Color;
+    }
+
+    .oj-gauge-threshold2 {
+      color: $dvtThreshold2Color;
+    }
+
+    .oj-gauge-threshold3 {
+      color: $dvtThreshold3Color;
+    }
+  }
+}

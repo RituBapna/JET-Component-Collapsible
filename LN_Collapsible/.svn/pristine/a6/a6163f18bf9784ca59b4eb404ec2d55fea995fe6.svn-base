@@ -1,0 +1,41 @@
+@import "../../utilities/oj.utilities";
+
+$includeComboboxClasses:   $includeFormControlClasses !default;
+
+// include dependencies
+@if $includeComboboxClasses != false {
+  $includeIconClasses:              true !global;
+  $includeNoteWindowClasses:        true !global;
+  $includeLabelClasses:             true !global;
+  $includeMessagingClasses:         true !global;
+  $includeFormControlCommonClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.icons";
+@import "oj.jq.messaging";
+@import "oj.jq.formcontrol.label";
+@import "oj.jq.formcontrol.common";
+
+// most of the styling in common file
+@import "oj.jq.formcontrol.listbox";
+@import "../../common/widgets/oj.common.formcontrol.combobox";
+
+
+@if $includeComboboxClasses != false {
+  @include module-include-once("jq.combobox") {
+    
+    /* icon */
+    /* -----------------------------*/
+
+    /* open icon for combobox */
+    .oj-combobox-open-icon {
+      @extend .oj-fwk-icon-arrow-s;
+    }
+    
+    /* clear entry icon for combobox */
+    .oj-combobox-clear-entry-icon {
+      @extend .oj-fwk-icon-cross;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "../../utilities/oj.utilities";
+
+$includeChartClasses:         $includeDvtClasses !default;
+
+// include dependencies
+@if $includeChartClasses != false {
+  $includeDvtBaseClasses:              true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.alta.dvt.base"; 
+@import "../../common/widgets/oj.common.dvt.chart"; 
+
+
+@if $includeChartClasses != false {
+  @include module-include-once("alta.chart") {
+  }
+}

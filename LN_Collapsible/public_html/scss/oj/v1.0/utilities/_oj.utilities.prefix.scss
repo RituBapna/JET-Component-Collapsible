@@ -1,0 +1,92 @@
+// NOTE: The mixins defined in these files are needed 
+// based on our current supported browsers. Mixins in this 
+// file will be removed when we no longer need to use vendor 
+// prefixes for a particular property.
+
+@mixin oj-transform-property ($transformValue)
+{
+    -webkit-transform: $transformValue;
+    -ms-transform: $transformValue;
+    transform: $transformValue;
+}
+
+@mixin oj-transition-property ($transitionValue...) {
+  -webkit-transition: $transitionValue;
+  transition: $transitionValue;
+}
+
+
+@mixin oj-box-sizing-property ($boxSizingValue)
+{
+    -moz-box-sizing: $boxSizingValue;
+    box-sizing: $boxSizingValue;
+}
+
+
+//*****************************************************************************
+//
+// Usage Example:
+//
+// .oj-foo, .oj-bar
+// {
+//   @include oj-placeholder()
+//   {
+//     color: red;
+//   }
+// }
+//*****************************************************************************
+
+@mixin oj-placeholder ()
+{
+  // tried comma separating these, didn't work, meaning tried this: 
+  //    &::-webkit-input-placeholder,
+  //    &::-moz-placeholder,
+  //    &:-ms-input-placeholder{
+  //      @content
+  //    }
+  
+  &::-webkit-input-placeholder {
+   @content
+  }
+
+  &::-moz-placeholder{
+   @content
+  }
+
+  &:-ms-input-placeholder {
+   @content
+  }
+}
+
+@mixin oj-user-select-property ($userSelectValue)
+{
+    -ms-user-select: $userSelectValue;
+    -webkit-user-select: $userSelectValue;
+    -moz-user-select: $userSelectValue;    
+    user-select:$userSelectValue;
+}
+
+@mixin oj-transition-timing-function-property ($transitionTimingValue)
+{
+	-webkit-transition-timing-function: $transitionTimingValue;
+	transition-timing-function: $transitionTimingValue;
+}
+
+@mixin oj-backface-visibility-property ($backfaceVisibilityValue)
+{
+	-webkit-backface-visibility: $backfaceVisibilityValue;
+	backface-visibility: $backfaceVisibilityValue;
+}
+
+@mixin oj-perspective-property ($perspectiveValue)
+{
+	-webkit-perspective: $perspectiveValue;
+	perspective: $perspectiveValue;
+}
+
+@mixin oj-animation-duration-property ($animationDurationValue)
+{
+  -webkit-animation-duration: $animationDurationValue;
+  animation-duration: $animationDurationValue;
+}
+

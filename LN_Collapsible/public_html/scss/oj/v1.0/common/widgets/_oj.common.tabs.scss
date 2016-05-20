@@ -1,0 +1,221 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.tabs.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@import "../../utilities/oj.utilities";
+
+//--------------------------------------------------------
+
+// include dependencies
+@if $includeTabsClasses != false {
+  @include module-include-once("common.tabs") {
+
+    /* tabs */
+    /* --------------------------------------------------------------- */
+
+    /*
+     * applied to the tabs
+     */
+    .oj-tabs {
+      position: relative;
+      font-size: $fontSize;
+    }
+
+    /*
+     * applied to the tab bar
+     */
+    .oj-tabs-nav {
+      // nowrap so conveyor doesn't wrap its content
+      white-space: nowrap;
+      margin: 0;
+    }
+
+    /*
+     * applied to a tab when it's selected
+     */
+    .oj-tabs-tab.oj-selected {
+      background-color: $tabsPanelBgColor;
+    }
+
+    /*
+     * applied to the tab header
+     */
+    .oj-tabs-anchor {
+      cursor: pointer;
+      outline:none;
+
+      display: inline-block;
+      padding: .6rem .85rem .6rem .85rem;
+      vertical-align: middle;
+    }
+
+    /*
+     * applied to the tab title text
+     * display inline so the close icon is aligned with the title text
+     */
+    .oj-tabs-title {
+      display: inline-block;
+      min-width: 1rem;
+      line-height: 1rem;
+      vertical-align: middle;
+      font-weight: normal;
+      color: $tabsNavTextColor;
+      text-decoration: none;
+    }
+
+    /*
+     * applied to the tab title text when it's overflow
+     */
+    .oj-tabs-title-overflow {
+      display: inline-block;
+      overflow: hidden; 
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    /*
+     * applied to the tab anchor when it's disabled
+     */
+    .oj-tabs-tab.oj-disabled .oj-tabs-anchor {
+      cursor: text;
+      text-decoration: none;
+    }
+
+    /* suppress all browser decorations of anchors in the tab */
+    .oj-tabs-tab a,
+    .oj-tabs-tab a:active,
+    .oj-tabs-tab a:visited,
+    .oj-tabs-tab a:hover,
+    .oj-tabs-tab a:focus {
+      text-decoration: none;
+    }
+
+    /*
+     * applied to the icon font in the tab title
+     */
+    .oj-tabs-tab-icon {
+      @extend .oj-clickable-icon;
+    }
+
+    /*
+     * applied to the horizontal tab
+     */
+    .oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab {
+      display: inline-block;
+      position: relative;
+    }
+
+    /*
+     * Container of the horizontal tab bar
+     */
+    .oj-tabs-conveyor {
+      display: inline-block;
+    }
+
+    /*
+     * applied to the conveyorbelt buttons
+     */
+    .oj-tabs-nav-root .oj-conveyorbelt-overflow-indicator.oj-start {
+      @include oj-ltr() {
+        margin-right: 5px;
+      }
+      @include oj-rtl() {
+        margin-left: 5px;
+      }
+    }
+    .oj-tabs-nav-root .oj-conveyorbelt-overflow-indicator.oj-end {
+      @include oj-ltr() {
+        margin-left: 5px;
+      }
+      @include oj-rtl() {
+        margin-right: 5px;
+      }
+    }
+
+    /*
+     * applied to the panel body
+     */
+    .oj-tabs-panel {
+      display: block;
+      padding: $panelPadding;
+      color: $textColor;
+      background-color: $tabsPanelBgColor;
+    }
+
+    /* vertical tabs */
+    /* --------------------------------------------------------------- */
+
+    /*
+     * applied to the vertical tab bar
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root {
+      margin: 0;
+      //  width: set in javascript
+
+      @include oj-ltr() {
+        float: left;
+      }
+      @include oj-rtl() {
+        float: right;
+      }
+    }
+
+    /*
+     * applied to the vertical tab
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root .oj-tabs-tab {
+      list-style: none;
+      position: relative;
+      top: 0;
+      margin: 0;
+      white-space: nowrap;
+
+      @include oj-ltr() {
+        clear: left;
+        left: 0;
+      }
+      @include oj-rtl() {
+        clear: right;
+        right: 0;
+      }
+    }
+
+    /*
+     * applied to the body of vertical tabs
+     */
+    .oj-tabs-vertical > .oj-tabs-panel {
+      margin-top: 0;
+      // min-height and margin-left(or margin-right): set in javascript
+    }
+
+    /* Tabs with the oj-tabs-icon-only class specified */
+    /* --------------------------------------------------------------- */
+
+    /* 
+     * override background setting in 
+     * .oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-tab
+     */
+    .oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-tab.oj-selected,
+    .oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-tab.oj-selected.oj-hover {
+      background-color: $tabsPanelBgColor;
+      background-image: none;
+    }
+
+    .oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-anchor {
+      padding: 0.68rem;
+    }
+
+    /* 
+     * applied to the vertical tab icon only header
+     */
+    .oj-tabs-vertical.oj-tabs-icon-only > .oj-tabs-nav-root .oj-tabs-anchor {
+      padding: 0.68rem 0.6rem 0.68rem 0.6rem;
+    }
+
+
+
+  }
+}
+

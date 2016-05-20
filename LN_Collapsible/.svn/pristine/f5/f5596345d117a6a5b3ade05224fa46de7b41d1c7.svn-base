@@ -1,0 +1,83 @@
+@import "../../utilities/oj.utilities";
+
+$includeDialogClasses:  $includeAllClasses !default;
+
+// include dependencies
+@if $includeDialogClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.alta.icons";
+
+@import "../../common/widgets/oj.common.dialog"; 
+@import "../../common/widgets/oj.common.resizable"; 
+
+@if $includeDialogClasses != false {
+  @include module-include-once("alta.dialog") {
+
+    /* dialog */
+    /* --------------------------------------------------------------- */
+    
+    .oj-dialog { 
+      top: 0;
+      left: 0;
+      padding: 0; 
+      @include oj-box-shadow($largeBoxShadow);
+      background: $dialogBgColor;
+      border: 1px solid $dialogBorderColor;
+      @include oj-border-radius($smallBorderRadius);
+    }
+
+    .oj-dialog-header {     
+      padding-top: 10px;    
+      background-color: $headerBgColor;
+      @include oj-background-image($headerBgImage);
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: $dialogBorderColor;        
+      font-size: $mediumFontSize;
+      color: $headerTextColor;
+      font-weight: $headerFontWeight;
+      @include oj-border-radius($smallBorderRadius $smallBorderRadius 0 0);
+    }
+
+
+    // padding for headers that have close icons
+    .oj-dialog-header-with-close-icon { 
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .oj-dialog-header-close-wrapper { 
+      padding-bottom: 6px;
+      padding-top: 6px;
+      padding-left: 4px;
+      padding-right: 4px;
+      margin-top: -6px;
+      margin-right: -4px;
+      margin-left: -4px;
+    }
+
+    .oj-dialog-title { 
+      margin: 0 10px 2px 4px;
+      @include oj-user-select-property (none);
+    }
+
+    .oj-dialog-body { 
+      border: 0; 
+      padding: $panelPadding;
+      @include oj-box-sizing-property(border-box);
+      background: $dialogBgColor;
+      color: $textColor;
+    }
+
+   // icons
+   //------------------------------------------
+
+    .oj-dialog-close-icon { 
+       @extend .oj-fwk-icon-cross;
+    }
+
+  }
+}

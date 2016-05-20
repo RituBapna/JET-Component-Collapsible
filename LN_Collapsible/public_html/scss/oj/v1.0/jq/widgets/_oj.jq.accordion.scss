@@ -1,0 +1,71 @@
+@import "../../utilities/oj.utilities";
+
+$includeAccordionClasses:  $includeAllClasses !default;
+
+// include dependencies
+@if $includeAccordionClasses != false {
+  $includeCollapsibleClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.collapsible";
+
+
+@import "../../common/widgets/oj.common.accordion"; 
+
+@if $includeAccordionClasses != false {
+  @include module-include-once("jq.accordion") {
+
+    /*
+     * applied to the accordion header
+     */
+    .oj-accordion-collapsible > .oj-collapsible-header {
+      @include ui-state-default;
+      @include ui-corner-all;
+      display: block;
+      cursor: pointer;
+      position: relative;
+      margin-top: 2px;
+      font-size: $fontSize;
+      padding-top: 5px;
+    }
+
+    /*
+     * need to restore top padding for the first nested collapsible, 
+     * because it's being reset in collapsible
+     */
+    .oj-collapsible-content > .oj-accordion-collapsible.oj-collapsible:first-child > .oj-collapsible-header {
+      padding-top: 5px;
+    }
+
+    /*
+     * applied to the accordion content
+     */
+    .oj-accordion-collapsible > .oj-collapsible-wrapper > .oj-collapsible-content {
+      @include ui-widget-content;
+      @include ui-corner-bottom;
+      padding: 1em;
+      border-top: 0;
+      overflow: auto;
+    }
+
+    /*
+     * no radius on bottom border of header when the collapsible is open
+     */
+    .oj-accordion-collapsible.oj-expanded > .oj-collapsible-header {
+      @include ui-state-active;
+      @include oj-border-bottom-left-radius(0); 
+      @include oj-border-bottom-right-radius(0);
+    }
+
+    /*
+     * applied to the disabled accordion header 
+     */
+    .oj-accordion-collapsible.oj-disabled > .oj-collapsible-header
+    {
+      background-color: $headerBgColor;
+      opacity: $opacityDisabled;
+    }
+
+  }
+}

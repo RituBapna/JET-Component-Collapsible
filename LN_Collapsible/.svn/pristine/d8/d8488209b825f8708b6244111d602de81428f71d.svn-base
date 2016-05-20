@@ -1,0 +1,139 @@
+define(["ojs/ojcore", "knockout", "ojs/ojmodel"], function($oj$$35$$, $ko$$4$$) {
+  $oj$$35$$.$KnockoutUtils$ = function $$oj$$35$$$$KnockoutUtils$$() {
+  };
+  $goog$exportPath_$$("KnockoutUtils", $oj$$35$$.$KnockoutUtils$, $oj$$35$$);
+  $oj$$35$$.$KnockoutUtils$.$internalObjectProperty$ = "oj._internalObj";
+  $oj$$35$$.$KnockoutUtils$.$underUpdateProp$ = "oj._underUpdate";
+  $oj$$35$$.$KnockoutUtils$.$collUpdatingProp$ = "oj.collectionUpdating";
+  $oj$$35$$.$KnockoutUtils$.map = function $$oj$$35$$$$KnockoutUtils$$map$($m$$27$$, $callback$$105$$, $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$) {
+    function $_makeUpdateModel$$($argProp$$) {
+      return function($value$$222$$) {
+        $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] || $m$$27$$.set($argProp$$, $value$$222$$);
+      };
+    }
+    var $koObject$$, $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$, $converted_updateObservableArrayReset$$, $updateModel_updateObservableArraySort$$;
+    if ($m$$27$$ instanceof $oj$$35$$.$Collection$) {
+      $koObject$$ = $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$ ? $ko$$4$$.observableArray() : [];
+      $oj$$35$$.$KnockoutUtils$.$_storeOriginalObject$($koObject$$, $m$$27$$);
+      for ($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ = 0;$i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ < $m$$27$$.$_getLength$();$i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ += 1) {
+        $koObject$$.push($oj$$35$$.$KnockoutUtils$.map($m$$27$$.$_atInternal$($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$, null, !0, !1), $callback$$105$$));
+      }
+      $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ = function $$i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$$($changes$$2$$) {
+        var $i$$296$$;
+        try {
+          if (!$koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$]) {
+            $koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] = !0;
+            for ($i$$296$$ = 0;$i$$296$$ < $changes$$2$$.length;$i$$296$$++) {
+              var $index$$198$$ = $changes$$2$$[$i$$296$$].index, $model$$78$$ = $oj$$35$$.$KnockoutUtils$.$_getModel$($changes$$2$$[$i$$296$$].value), $status$$13$$ = $changes$$2$$[$i$$296$$].status;
+              "added" === $status$$13$$ ? $index$$198$$ >= $m$$27$$.length - 1 ? $m$$27$$.add($model$$78$$) : $m$$27$$.add($model$$78$$, {at:$index$$198$$}) : "deleted" === $status$$13$$ && $m$$27$$.$_removeInternal$($model$$78$$, $index$$198$$);
+            }
+            $m$$27$$.comparator && ($koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $koObject$$.sort(function($a$$88$$, $b$$54$$) {
+              return $oj$$35$$.$Collection$.$SortFunc$($a$$88$$, $b$$54$$, $m$$27$$.comparator, $m$$27$$, this);
+            }), $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1);
+          }
+        } catch ($e$$135$$) {
+          throw $e$$135$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] = !1;
+        }
+      };
+      $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$ && $koObject$$.subscribe && $koObject$$.subscribe($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$, null, "arrayChange");
+      $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$ = function $$array$$15_data$$162_updateObservable_updateObservableArrayRemove$$$($model$$79$$, $collection$$54$$, $options$$320$$) {
+        var $index$$199$$;
+        try {
+          !$koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] && $collection$$54$$ instanceof $oj$$35$$.$Collection$ && ($koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $index$$199$$ = $options$$320$$.index, $koObject$$.splice($index$$199$$, 1));
+        } catch ($e$$136$$) {
+          throw $e$$136$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1;
+        }
+      };
+      $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ = function $$i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$$($model$$80$$, $collection$$55$$, $options$$321$$) {
+        var $index$$200$$, $newObservable$$;
+        try {
+          if (!$koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] && $collection$$55$$ instanceof $oj$$35$$.$Collection$ && ($koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $index$$200$$ = $collection$$55$$.$_localIndexOf$($model$$80$$), void 0 !== $index$$200$$ && -1 < $index$$200$$)) {
+            if ($newObservable$$ = $oj$$35$$.$KnockoutUtils$.map($model$$80$$, $callback$$105$$), $options$$321$$.fillIn) {
+              for (var $i$$297$$ = Array.isArray($koObject$$) ? $koObject$$.length : $koObject$$().length;$i$$297$$ < $index$$200$$;$i$$297$$++) {
+                $koObject$$.splice($i$$297$$, 0, $oj$$35$$.$KnockoutUtils$.map($collection$$55$$.$_atInternal$($i$$297$$, null, !0, !1), $callback$$105$$));
+              }
+              $koObject$$.splice($index$$200$$, 1, $newObservable$$);
+            } else {
+              $koObject$$.splice($index$$200$$, 0, $newObservable$$);
+            }
+          }
+        } catch ($e$$137$$) {
+          throw $e$$137$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1;
+        }
+      };
+      $converted_updateObservableArrayReset$$ = function $$converted_updateObservableArrayReset$$$($collection$$56$$) {
+        try {
+          !$koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] && $collection$$56$$ instanceof $oj$$35$$.$Collection$ && ($koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $ko$$4$$.isObservable($koObject$$) ? $koObject$$.removeAll() : $koObject$$ = []);
+        } catch ($e$$138$$) {
+          throw $e$$138$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1;
+        }
+      };
+      $updateModel_updateObservableArraySort$$ = function $$updateModel_updateObservableArraySort$$$($collection$$57$$) {
+        try {
+          !$koObject$$[$oj$$35$$.$KnockoutUtils$.$collUpdatingProp$] && $collection$$57$$ instanceof $oj$$35$$.$Collection$ && ($koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $koObject$$.sort(function($a$$89$$, $b$$55$$) {
+            return $oj$$35$$.$Collection$.$SortFunc$($a$$89$$, $b$$55$$, $m$$27$$.comparator, $collection$$57$$, this);
+          }));
+        } catch ($e$$139$$) {
+          throw $e$$139$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1;
+        }
+      };
+      $m$$27$$.$OnInternal$($oj$$35$$.$Events$.$EventType$.ADD, $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$, void 0, void 0, !0);
+      $m$$27$$.$OnInternal$($oj$$35$$.$Events$.$EventType$.REMOVE, $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$, void 0, void 0, !0);
+      $m$$27$$.$OnInternal$($oj$$35$$.$Events$.$EventType$.RESET, $converted_updateObservableArrayReset$$, void 0, void 0, !0);
+      $m$$27$$.$OnInternal$($oj$$35$$.$Events$.$EventType$.SORT, $updateModel_updateObservableArraySort$$, void 0, void 0, !0);
+    } else {
+      if (void 0 === $m$$27$$) {
+        return;
+      }
+      $koObject$$ = {};
+      $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$ = $m$$27$$.attributes;
+      $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ = null;
+      for ($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$ in $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$) {
+        $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$.hasOwnProperty($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$) && ($converted_updateObservableArrayReset$$ = $ko$$4$$.observable($m$$27$$.get($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$)), $koObject$$[$i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$] = $converted_updateObservableArrayReset$$, $updateModel_updateObservableArraySort$$ = $_makeUpdateModel$$($i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$), 
+        $updateModel_updateObservableArraySort$$.$_prop$ = $i$$295_prop$$81_updateCollection_updateObservableArrayAdd$$, $converted_updateObservableArrayReset$$.subscribe && $converted_updateObservableArrayReset$$.subscribe($updateModel_updateObservableArraySort$$));
+      }
+      $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$ = function $$array$$15_data$$162_updateObservable_updateObservableArrayRemove$$$($model$$81$$) {
+        var $attrs$$20$$, $prop$$82$$;
+        try {
+          for ($prop$$82$$ in $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !0, $attrs$$20$$ = $model$$81$$.$changedAttributes$(), $attrs$$20$$) {
+            if ($attrs$$20$$.hasOwnProperty($prop$$82$$)) {
+              $koObject$$[$prop$$82$$]($model$$81$$.get($prop$$82$$));
+            }
+          }
+        } catch ($e$$140$$) {
+          throw $e$$140$$;
+        } finally {
+          $koObject$$[$oj$$35$$.$KnockoutUtils$.$underUpdateProp$] = !1;
+        }
+      };
+      $m$$27$$.$OnInternal$($oj$$35$$.$Events$.$EventType$.CHANGE, $array$$15_data$$162_updateObservable_updateObservableArrayRemove$$, void 0, void 0, !0);
+      $oj$$35$$.$KnockoutUtils$.$_storeOriginalObject$($koObject$$, $m$$27$$);
+      $callback$$105$$ && $callback$$105$$($koObject$$);
+    }
+    return $koObject$$;
+  };
+  $goog$exportPath_$$("KnockoutUtils.map", $oj$$35$$.$KnockoutUtils$.map, $oj$$35$$);
+  $oj$$35$$.$KnockoutUtils$.$_getModels$ = function $$oj$$35$$$$KnockoutUtils$$$_getModels$$($arr$$24$$) {
+    var $modelArray$$2$$ = [], $i$$298$$, $model$$82$$;
+    for ($i$$298$$ = 0;$i$$298$$ < $arr$$24$$.length;$i$$298$$ += 1) {
+      $model$$82$$ = $oj$$35$$.$KnockoutUtils$.$_getModel$($arr$$24$$[$i$$298$$]), $modelArray$$2$$.push($model$$82$$);
+    }
+    return $modelArray$$2$$;
+  };
+  $oj$$35$$.$KnockoutUtils$.$_getModel$ = function $$oj$$35$$$$KnockoutUtils$$$_getModel$$($val$$58$$) {
+    return $val$$58$$ instanceof $oj$$35$$.$Model$ ? $val$$58$$ : $val$$58$$[$oj$$35$$.$KnockoutUtils$.$internalObjectProperty$];
+  };
+  $oj$$35$$.$KnockoutUtils$.$_storeOriginalObject$ = function $$oj$$35$$$$KnockoutUtils$$$_storeOriginalObject$$($object$$7$$, $value$$223$$) {
+    Object.defineProperty($object$$7$$, $oj$$35$$.$KnockoutUtils$.$internalObjectProperty$, {value:$value$$223$$, enumerable:!1});
+  };
+});

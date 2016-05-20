@@ -1,0 +1,48 @@
+@import "../../utilities/oj.utilities";
+
+$includeCollapsibleClasses:  $includeAllClasses !default;
+
+// include dependencies
+@if $includeCollapsibleClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.icons";
+
+@import "../../common/widgets/oj.common.collapsible"; 
+
+@if $includeCollapsibleClasses != false {
+  @include module-include-once("jq.collapsible") {
+
+    /*
+     * applied to the disabled collapsible header 
+     */
+    .oj-collapsible.oj-disabled > .oj-collapsible-header {
+      opacity: $opacityDisabled;
+    }
+
+    // disclosure icons
+    //------------------------------------------
+
+    .oj-collapsible-header-icon {
+      vertical-align: middle;
+      padding-top: 3px;
+     }
+
+    .oj-collapsible-close-icon {
+      @include oj-ltr() {
+        @extend .oj-fwk-icon-arrow-e;
+      }
+
+      @include oj-rtl() {
+        @extend .oj-fwk-icon-arrow-w;
+      } 
+    }
+
+    .oj-collapsible-open-icon {
+      @extend .oj-fwk-icon-arrow-s;
+    }
+
+  }
+}

@@ -1,0 +1,202 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.pagingcontrol.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@import "../../utilities/oj.utilities";
+@import "oj.common.formcontrol.mixins";
+
+@if $includePagingControlClasses != false  {
+  @include module-include-once("common.pagingcontrol") {
+
+    /* paging control */
+    /* --------------------------------------------------------------- */
+    $pagingControlNavPaddingLeftRight: 5px !default;
+    
+    /* Styling for the component. Set the line-height back to normal in case it 
+       was set to 0 by the table/datagrid footer classes */
+    .oj-pagingcontrol {
+      line-height: normal;
+    }
+
+    /* Styling for the component content. */
+    .oj-pagingcontrol-content {
+      line-height: 2.5 * $fontSize;
+      overflow: hidden;
+    }
+
+    /* Styling for the loadMore mode contents. */
+    .oj-pagingcontrol-loadmore {
+      @include oj-ltr() {    
+        text-align: right;
+      }
+
+      @include oj-rtl() {    
+        text-align: left;
+      }
+    }
+
+    /* Styling for the Show More link. */
+    .oj-pagingcontrol-loadmore-link {
+      color: $linkTextColor;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    
+    .oj-pagingcontrol-loadmore-link.oj-hover {
+      text-decoration: underline;
+    }
+
+    /* Styling for the loadMore mode range. */
+    .oj-pagingcontrol-loadmore-range {
+      padding-left: 2 * $pagingControlNavPaddingLeftRight;
+      padding-right: 2 * $pagingControlNavPaddingLeftRight;
+      white-space: nowrap;
+    }
+
+    /* Styling for the page mode contents. */
+    .oj-pagingcontrol-nav {
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    /* Styling for the page mode page input section. */
+    .oj-pagingcontrol-nav-input-section {
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+      padding-top: 2px;
+      @include oj-ltr() {    
+        padding-right: $pagingControlNavPaddingLeftRight;
+      }
+      @include oj-rtl() {    
+        padding-left: $pagingControlNavPaddingLeftRight;
+      }
+    }
+
+    /* Styling for the page mode navigation arrows section. */
+    .oj-pagingcontrol-nav-arrow-section {
+      display: inline-block; 
+      vertical-align: middle;
+      @include oj-ltr() {    
+        border-left: 1px solid $panelBorderColor;
+        padding-left: $pagingControlNavPaddingLeftRight;
+      }
+      @include oj-rtl() {    
+        border-right: 1px solid $panelBorderColor;
+        padding-right: $pagingControlNavPaddingLeftRight;
+      }
+    }
+
+    /* Styling for the page mode page links section. */
+    .oj-pagingcontrol-nav-pages-section {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: $buttonHeight;
+    }
+
+    /* Styling for the page mode page links. */
+    .oj-pagingcontrol-nav-page {
+      color: $linkTextColor;
+      min-width: $fontSize;
+      padding: 4px 8px;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      font-size: $fontSize;
+    }
+    
+    .oj-pagingcontrol-nav-page.oj-hover {
+      text-decoration: underline;
+    }
+
+    /* Styling for the page mode page link when selected. */
+    .oj-pagingcontrol-nav-page.oj-selected {
+      border: 1px solid $formControlLabelColor;
+      display: inline;
+      color: $textColor;
+    }
+
+    /* Styling for the page mode page link when disabled. */
+    .oj-pagingcontrol-nav-page.oj-disabled {
+      text-decoration: none;
+    }
+
+    /* Styling for the page mode page label. */
+    .oj-pagingcontrol-nav-label {
+      @include oj-ltr() {    
+        padding-left: $pagingControlNavPaddingLeftRight;
+      }
+      @include oj-rtl() {    
+        padding-right: $pagingControlNavPaddingLeftRight;
+      }
+      color: $formControlLabelColor;
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: $fontSize;
+    }
+
+    /* Styling for the page mode page input element. */
+    .oj-pagingcontrol-nav-input { 
+      @include oj-form-control-content;
+      
+      margin: -1px 0 3px 8px;
+      text-align: center;
+      min-width: 2 * $fontSize;
+      max-width: 2 * $fontSize;
+      vertical-align: middle;
+      min-height: 2 * $fontSize;
+      max-height: 2 * $fontSize;
+      font-size: $fontSize;
+    }
+
+    /* Styling for the page mode maximum number of pages text. */
+    .oj-pagingcontrol-nav-input-max {
+      vertical-align: middle;
+      color: $formControlLabelColor;
+      font-size: $fontSize;
+      @include oj-ltr() {    
+        padding-left: $pagingControlNavPaddingLeftRight; 
+      }
+      @include oj-rtl() {    
+        padding-right: $pagingControlNavPaddingLeftRight; 
+      } 
+    }
+
+    /* Styling for the page mode page range summary. */
+    .oj-pagingcontrol-nav-input-summary {
+      vertical-align: middle;
+      color: $formControlLabelColor;
+      font-size: $fontSize;
+      @include oj-ltr() {    
+        padding-left: $pagingControlNavPaddingLeftRight; 
+      }
+      @include oj-rtl() {    
+        padding-right: $pagingControlNavPaddingLeftRight; 
+      }
+    }
+
+    /* Styling for the page mode navigation page arrows. */
+    .oj-pagingcontrol-nav-arrow {
+      display: inline-block;
+      vertical-align: middle;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 2px 2px 2px 2px;
+      padding: 5px;
+    }
+    
+    /* Styling for the page mode navigation page arrows in hover state. */
+    .oj-pagingcontrol-nav-arrow.oj-hover {
+      background-color: $buttonBgColorHover;
+      border-color: $buttonBorderColorHover;
+      text-decoration: none;
+    }
+
+    /* Styling for the page mode navigation page arrows when active. */
+    .oj-pagingcontrol-nav-arrow.oj-active,
+    .oj-pagingcontrol-nav-arrow.oj-active.oj-hover {
+       color: $buttonIconColorSelected;
+    }
+  }
+}

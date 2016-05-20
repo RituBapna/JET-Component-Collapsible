@@ -1,0 +1,17 @@
+@import "../../utilities/oj.utilities"; 
+
+$includeGaugeClasses:         $includeDvtClasses !default;
+
+// include dependencies
+@if $includeGaugeClasses != false {
+  $includeDvtBaseClasses:              true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.dvt.base"; 
+@import "../../common/widgets/oj.common.dvt.gauge";
+
+@if $includeGaugeClasses != false {
+  @include module-include-once("jq.gauge") {
+  }
+}

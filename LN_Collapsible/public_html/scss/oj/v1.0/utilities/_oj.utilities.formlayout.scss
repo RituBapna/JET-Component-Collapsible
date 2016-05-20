@@ -1,0 +1,116 @@
+
+//-------------------------------------------------------------------------------------------------
+// Create form layout classes, example call is 
+//      @include oj-form-responsive("oj-sm");
+// 
+// $selectorPrefix: prefix to use for label classes, for example "oj-sm"
+//-------------------------------------------------------------------------------------------------
+@mixin oj-form-responsive($selectorPrefix, $labelInlineMarginTop, $labelInlineGutter)
+{
+
+  // nowrap label support
+  .oj-form > .oj-row > .oj-col:nth-child(odd) > .#{$selectorPrefix}-label-nowrap,
+  .#{$selectorPrefix}-labels-nowrap > .oj-row > .oj-col:nth-child(odd) > .oj-label {
+    white-space: nowrap;
+  }
+
+
+  // inline label suport
+  .oj-form > .oj-row > .oj-col:nth-child(odd) > .#{$selectorPrefix}-label-inline,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) > .oj-label {
+    // we're using width of 100% and so on for the case where 
+    // the label-nowrap classes are used.
+    // See the form layout demo titled "label wrapping" 
+    // before checking the values in here
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include oj-bidi-property(
+         $property: 'text-align', 
+         $startOrEnd: end);
+  }
+
+
+
+  // when labels are inline we don't float. 
+  .#{$selectorPrefix}-label-inline .oj-label-required-icon,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) .oj-label-required-icon,
+  .#{$selectorPrefix}-label-inline .oj-label-help-icon,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) .oj-label-help-icon,
+  .#{$selectorPrefix}-label-inline.oj-label label,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) label {
+     float:none; 
+     // when we don't float, then the order of the dom is the order of what
+     // you see, so we want spacing after the icons, not before.
+     @include oj-ltr {
+       margin-left: 0;
+       margin-right: 6px;
+     }
+     @include oj-rtl(){
+       margin-right: 0;
+       margin-left: 6px;
+     }
+  }
+  
+  // when labels are inline we don't float. 
+  .#{$selectorPrefix}-label-inline .oj-label-help-icon-anchor,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) .oj-label-help-icon-anchor {
+     float:none; 
+  }
+
+
+  .#{$selectorPrefix}-label-inline.oj-label,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col > .oj-label {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: $labelInlineMarginTop;
+    // box sizing required for firefox or the 
+    // gutter padding  doesn't work
+    @include oj-box-sizing-property(border-box);
+
+    @include oj-ltr {
+      padding-right: $labelInlineGutter; 
+    }
+
+    @include oj-rtl(){
+      padding-left: $labelInlineGutter;
+    }
+  }
+  
+  // when the label should be top aligned
+  .#{$selectorPrefix}-label-inline.oj-label-inline-top,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col > .oj-label-inline-top
+  {
+    margin-top: 0;
+  }
+  
+  // radioset/checkboxset are inline-top aligned, but they need to be
+  // a couple pixels higher than other input components to have the label
+  // line up with the first radio's label
+  .#{$selectorPrefix}-label-inline.oj-radioset-label,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col > .oj-radioset-label,
+  .#{$selectorPrefix}-label-inline.oj-checkboxset-label,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col > .oj-checkboxset-label,
+  {
+    margin-top: -2px;
+    margin-bottom: 0;
+  }
+  
+  
+  // This is for cases where there are label modifiers (required, etc), in which case
+  // the properties below need to be inherited by oj-label-group
+  // otherwise the ellipsis doesn't show when the label-nowrap classes are used.
+  // See the form layout demo titled "label wrapping" 
+  // before checking the values in here
+  // line-height is needed so that the label has enough height to show borders.
+  // line-height on label itself has no effect.
+  .oj-form > .oj-row > .oj-col:nth-child(odd) > .#{$selectorPrefix}-label-inline .oj-label-group,
+  .#{$selectorPrefix}-labels-inline > .oj-row > .oj-col:nth-child(odd) > .oj-label .oj-label-group{
+    width: inherit;
+    overflow: inherit;
+    text-overflow: inherit;
+    line-height: 1.6em;
+  }
+
+}

@@ -1,0 +1,90 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.toolbar.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@if $includeToolbarClasses != false {
+  @include module-include-once("common.toolbar") {
+
+    /* toolbar*/
+    /* --------------------------------------------------------------- */
+    
+    .oj-toolbar {
+        padding: 0.333em;
+        border-style: solid;
+        border-color: $toolbarBorderColor;
+        border-width: $toolbarBorderWidth;
+        @include oj-border-radius($mediumBorderRadius);
+        background-color: $toolbarBgColor;
+    }    
+
+
+    // todo: review with Gab
+    // We use .oj-toolbar .oj-button, even though toolbar might support more than just buttons in the future, because:
+    // - If we use .oj-toolbar .oj-component, then when toolbar contains a buttonset, it's too tall bacause both the 
+    //   buttonset and its buttons get this margin.  Then toolbar contents like a separator look too short.
+    // - Using .oj-toolbar>.oj-component, to avoid that problem, is undesirable because we prefer to avoid child selectors, 
+    //   and because it fails to override .oj-button's bottom margin, for which we'd need another rule.
+    // - We're likely to need similar fine control over future toolbar contents, e.g. in similar cases of nested containers.  
+    //   And Toolbar is likely to always have an explicit whitelist of contents that it supports, for focus management purposes.
+    //   So it makes sense to itemize the descendant components via specific selectors like .oj-toolbar .oj-button.
+    .oj-toolbar .oj-button {
+        // See padding/margin comment in .oj-toolbar
+        margin-top: 0.250em; // 3px in spec
+        margin-bottom: 0.250em; // 3px in spec
+    }
+
+    /* Apps can apply this class to a span to get a toolbar separator.  To make it accessible, the span should also have 
+     * role="separator" aria-orientation="vertical".
+     */
+    .oj-toolbar-separator {
+        border-left: solid 1px $toolbarBorderColor; 
+        height: 1.833em; // spec says 22px
+        display:inline-block; 
+        vertical-align:middle;
+
+        // spec says padding left/right 6px, but inline-block gives ~4px for free, so use 2px.
+        // has to be margin, not padding, since the border is the separator.
+        margin-left: 0.167em; // equals 2px. see above
+        margin-right: 0.167em; // equals 2px. see above.
+    }
+
+    /* To layout multiple toolbars, an element with .oj-toolbars can contain 1 or more elements 
+       each having .oj-toolbar-row, which can each contain 1 or more JET Toolbars 
+       (which have the oj-toolbar class). */
+
+    .oj-toolbars {
+        border-style: solid;
+        border-color: $toolbarBorderColor;
+        border-width: $toolbarBorderWidth;
+        @include oj-border-radius($mediumBorderRadius);
+        background-color: $toolbarBgColor;
+    }
+
+    .oj-toolbar-row .oj-toolbar {
+      display: inline-block;
+      background-color: transparent;
+      border: 0;
+    }
+
+
+    .oj-toolbar-row .oj-toolbar + .oj-toolbar {
+      border-radius: 0;
+      
+      @include oj-ltr()
+      {
+        border-left: 1px solid $toolbarBorderColor;
+      }
+      @include oj-rtl()
+      {
+        border-right: 1px solid $toolbarBorderColor;
+      }
+    }
+
+    .oj-toolbar-row + .oj-toolbar-row {
+      border-top: 1px solid $toolbarBorderColor;
+    }
+  }
+}
+ 

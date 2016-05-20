@@ -1,0 +1,24 @@
+@import "../../utilities/oj.utilities";
+
+$includeButtonClasses:  $includeAllClasses !default;
+
+@if $includeButtonClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers";
+@import "oj.alta.icons";
+
+@import "../../common/widgets/oj.common.button"; 
+
+@if $includeButtonClasses != false {
+  @include module-include-once("alta.button") {
+
+    /* menu buttons */
+
+    .oj-button-menu-dropdown-icon {
+        @extend .oj-fwk-icon-arrow02-s;
+    }
+    
+  }
+}

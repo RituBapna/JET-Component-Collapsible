@@ -1,0 +1,122 @@
+@import "../../utilities/oj.utilities";
+
+
+$includeExperimentalFlexboxGridClasses: false !default;
+
+
+@if $includeExperimentalFlexboxGridClasses != false {
+  @include module-include-once("alta.experimentalflexboxgrid") {
+    /* Grid HTML Classes */
+    .oj-row {
+      @include oj-grid-row();
+      
+      > .oj-col > .oj-row { 
+        @include oj-grid-row($behavior: nest);
+      }
+    }
+
+    .oj-col { 
+      @include oj-grid-column($columns:$gridTotalColumns, $padding: true);
+      @include oj-box-sizing-property(border-box);
+    }
+
+    .oj-row.oj-cols-nopad > .oj-col,
+    .oj-cols-nopad > .oj-row > .oj-col {
+         @include oj-grid-column($padding: 0);
+    }
+
+    @if $responsiveQuerySmallUp and $responsiveQuerySmallUp != none {
+      @media #{$responsiveQuerySmallUp} {
+        // generateOrdering is false because we're mobile first, so 
+        // in theory the ordering matches small dom order and then you move 
+        // things around on bigger screens
+        @include oj-grid-responsive("oj-sm", $generateOrdering: false, $generateOffsets: false);
+      }
+    }
+
+    @if $responsiveQueryMediumUp and $responsiveQueryMediumUp != none {
+      @media  #{$responsiveQueryMediumUp} {
+        @include oj-grid-responsive($selectorPrefix: "oj-md");
+      }
+    }
+
+    @if $responsiveQueryLargeUp and $responsiveQueryLargeUp != none {
+      @media  #{$responsiveQueryLargeUp} {
+        @include oj-grid-responsive($selectorPrefix: "oj-lg");
+
+      }
+    }
+
+    @if $responsiveQueryXlargeUp and $responsiveQueryXlargeUp != none {
+      @media  #{$responsiveQueryXlargeUp} {
+        @include oj-grid-responsive($selectorPrefix: "oj-xl");
+
+      }
+    }
+
+    @if $responsiveQueryXXlargeUp and $responsiveQueryXXlargeUp != none {
+      @media  #{$responsiveQueryXXlargeUp} {
+        @include oj-grid-responsive($selectorPrefix: "oj-xxl");
+
+      }
+    }
+
+
+
+    //ONLY
+    @if $responsiveQuerySmallOnly and $responsiveQuerySmallOnly != none {
+      @media #{$responsiveQuerySmallOnly} {
+        // only generate centering classes
+        @include oj-grid-responsive($selectorPrefix:    "oj-sm-only",
+                                    $generateCentering: $gridGenerateCentering,
+                                    $generateBasics:    false, 
+                                    $generateOffsets:   false, 
+                                    $generateOddEven:   false,
+                                    $generateOrdering:  false); 
+      }
+    }
+
+    @if $responsiveQueryMediumOnly and $responsiveQueryMediumOnly != none {
+      @media #{$responsiveQueryMediumOnly} {
+        // only generate centering classes
+        @include oj-grid-responsive($selectorPrefix:    "oj-md-only",
+                                    $generateCentering: $gridGenerateCentering,
+                                    $generateBasics:    false, 
+                                    $generateOffsets:   false, 
+                                    $generateOddEven:   false,
+                                    $generateOrdering:  false); 
+      }
+    }
+
+    @if $responsiveQueryLargeOnly and $responsiveQueryLargeOnly != none {
+      @media #{$responsiveQueryLargeOnly} {
+        // only generate centering classes
+        @include oj-grid-responsive($selectorPrefix:    "oj-lg-only",
+                                    $generateCentering: $gridGenerateCentering,
+                                    $generateBasics:    false, 
+                                    $generateOffsets:   false, 
+                                    $generateOddEven:   false,
+                                    $generateOrdering:  false); 
+      }
+    }
+
+    @if $responsiveQueryXlargeOnly and $responsiveQueryXlargeOnly != none {
+      @media #{$responsiveQueryXlargeOnly} {
+        // only generate centering classes
+        @include oj-grid-responsive($selectorPrefix:    "oj-xl-only",
+                                    $generateCentering: $gridGenerateCentering,
+                                    $generateBasics:    false, 
+                                    $generateOffsets:   false, 
+                                    $generateOddEven:   false,
+                                    $generateOrdering:  false); 
+      }
+    }
+    
+    @if $responsiveQueryPrint and $responsiveQueryPrint != none {
+      @media  #{$responsiveQueryPrint} {
+        @include oj-grid-responsive($selectorPrefix: "oj-print");
+      }
+    }
+
+  }
+}

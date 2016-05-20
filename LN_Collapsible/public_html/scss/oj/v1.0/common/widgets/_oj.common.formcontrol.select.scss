@@ -1,0 +1,137 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// WARNING: do not directly import this file, instead import the 
+//          version in your base theme's directory, 
+//          for example alta/widgets/_oj.alta.formcontrol.select.scss
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@import "../../utilities/oj.utilities";
+@import "oj.common.formcontrol.mixins";
+
+
+@if $includeSelectClasses != false {
+  @include module-include-once("common.select") {
+
+    /* select */
+    /* --------------------------------------------------------------- */
+    
+    .oj-select {
+      position: relative;
+      display: inline-block;
+      max-width: $formControlLargeMaxWidth;
+      min-width: $formControlMinWidth;
+      width: 100%;
+      // font size needs to be on the root, because max/min width is in em.
+      font-size: $fontSize;
+
+      @include oj-box-sizing-property(border-box); 
+    }
+
+    /* 
+     * Applied to the select box which includes the selected text and the dropdown open icon
+     */
+    .oj-select-choice {
+      @include oj-form-control-content;
+      @include oj-box-sizing-property(border-box);
+      display: block;
+      overflow: hidden;
+      position: relative;
+      white-space: nowrap;
+      background-clip: padding-box;
+      text-overflow: ellipsis;
+      height: $formControlHeight;
+      line-height: $formControlHeight;
+
+      @include oj-ltr() {
+        padding-left: $formControlPaddingHorizontal;
+      }
+      @include oj-rtl() {
+        padding-right: $formControlPaddingHorizontal;
+      }
+    }
+
+    /* Invalid styling for the widget */
+    .oj-select.oj-invalid .oj-select-choice {
+      border: $formControlMessagingBorderWidth solid $borderColorError;
+    }
+
+    /* Warning styling for the widget */
+    .oj-select.oj-warning .oj-select-choice {
+      border: $formControlMessagingBorderWidth solid $borderColorWarning;
+    }
+
+    /* disabled styles */
+    .oj-select.oj-disabled .oj-select-choice {
+      @include oj-form-control-content-disabled;
+    }
+
+    /* 
+     * Applied to the place holder text
+     */
+    .oj-select-chosen.oj-select-default {
+      color: $formControlPlaceholderColor; 
+      font-style: $formControlPlaceholderFontStyle;
+    }
+
+    /* 
+     * Applied to the selected text
+     */
+    .oj-select-chosen {
+      border: 0;
+      outline: 0;
+      white-space: nowrap;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      @include oj-box-shadow(none);
+      @include oj-box-sizing-property(border-box);
+
+      @include oj-ltr() {
+        padding-right: 24px;
+      }
+      @include oj-rtl() {
+        padding-left: 24px;
+      }
+    }
+
+
+    /* 
+     * Applied to the dropdown open icon
+     */
+    .oj-select-arrow {
+      display: inline-block;
+      text-align: center;
+      width: 28px;
+      height: 28px;
+      position: absolute;
+      top: 0;
+      @include oj-ltr() {
+        right: 0;
+      }
+      @include oj-rtl() {
+        left: 0;
+      }
+    }
+
+    .oj-select-open-icon {
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden;
+      cursor: pointer;
+
+      //move the arrow icon up couple pixels so it's centered in the select box
+      padding-bottom: $formControlHeight * 0.1;
+    }
+
+
+    // High Contrast
+    //--------------------------------------------
+
+    // a disabled select will have a less prominent border
+    .oj-hicontrast .oj-select.oj-disabled {
+      border-style: dotted;
+    }
+
+
+  }
+}

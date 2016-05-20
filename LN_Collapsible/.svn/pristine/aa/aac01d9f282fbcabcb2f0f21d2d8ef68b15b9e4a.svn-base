@@ -1,0 +1,38 @@
+@import "../../utilities/oj.utilities";
+
+$includeSelectClasses:   $includeFormControlClasses !default;
+
+// include dependencies
+@if $includeSelectClasses != false {
+  $includeIconClasses:              true !global;
+  $includeNoteWindowClasses:        true !global;
+  $includeLabelClasses:             true !global;
+  $includeMessagingClasses:         true !global;
+  $includeFormControlCommonClasses: true !global;
+  $includeListboxClasses:           true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.alta.icons";
+@import "oj.alta.messaging";
+@import "oj.alta.formcontrol.label";
+@import "oj.alta.formcontrol.common";
+
+// most of the styling in common file
+@import "oj.alta.formcontrol.listbox";
+@import "../../common/widgets/oj.common.formcontrol.select";
+
+
+@if $includeSelectClasses != false {
+  @include module-include-once("alta.select") {
+
+    /* 
+     * Applied to the dropdown open icon
+     */
+    .oj-select-open-icon {
+      @extend .oj-fwk-icon-arrow02-s;
+    }
+
+  }
+}
+

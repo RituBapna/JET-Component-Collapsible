@@ -1,0 +1,194 @@
+require(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojcollapsible','ojs/ojselectcombobox', 'ojs/ojradioset'],
+        function(oj, ko, $)
+        {   
+            function CollapsibleModel() {
+                
+                var self = this;
+                self.tailSelected = ko.observable('simple'),
+    self.mySelected = ko.observable("start bottom"),
+    self.atSelected = ko.observable("end top"),
+    self.methodValue=ko.observable("refresh()"),
+    self.autoDismissValue=ko.observable("focusLoss"),
+    self.autoDismissOptions =ko.observableArray([
+        {id: 'none', value: 'none', label: 'none'},
+        {id: 'focusLoss', value: 'focusLoss', label: 'focusLoss'}
+    ]),
+            self.availableTails = ko.observableArray(['none', 'simple']),
+    self.availablePositionMnemonics = ko.observableArray(['left top', 'left center','left bottom', 'center top', 'center center', 'center bottom','right top', 'right center', 'right bottom', 'start top', 'start center',
+        'start bottom', 'end top', 'end center', 'end bottom']), 
+    self.methodOptions = ko.observableArray(['open()', 'close()', 'isOpen()','refresh()']),
+    self.getPosition = function ()
+    {
+      //  alert("position");
+      return {'my' : this.mySelected(),
+              'at' : this.atSelected(),
+              'collision' : 'none'};
+    },
+    self.getTail = function (event,data)
+    {
+       // alert();
+       // console.log(data);
+       // self.tailSelected(data.value[0]);
+      return this.tailSelected();
+    },
+    self.autoDismissUpdate=function(event,data){
+        if (data.value[0] === "none")
+            this.autoDismissValue='none';
+        else
+            this.autoDismissValue='focusLoss';
+        //return true;
+    },
+            self.methodCall=function(data, event){
+        //console.log(event.currentTarget.value);
+        var widget = $( "#popup1" ).ojPopup( "widget" );
+       // console.log(widget);
+        if(event.currentTarget.value ==='open()')
+        {   
+          //open(launcher,position)
+          //first argument --- method name
+          //second argument ---id of the dom element on which to open i.e.#showPopup
+          //third argument --- position  my -- is (#showPopup)  at -- popup itself
+
+          $( "#popup1" ).ojPopup( "open" , "#showPopup", {"my": "left top", "at": "right top"} );
+           $('#isOpen1').html('true');
+          // $( "#popup1" ).ojPopup( { "position": {"my": "left top", "at": "right top"} } );
+          //$( "#popup1" ).ojPopup( "position" );
+
+        }
+         if(event.currentTarget.value ==='close()')
+         {
+           $( "#popup1" ).ojPopup("close"); 
+           $('#isOpen1').html('false');
+         }
+        if(event.currentTarget.value ==='isOpen()')
+          {
+          var isOpen =  $( "#popup1" ).ojPopup( "isOpen" );
+          if(isOpen === false)
+              $('#isOpen1').html('false');
+          else
+              $('#isOpen1').html('true');
+          }
+
+    };
+                self.multipleOption = ko.observable(false);
+                self.disabledValue = ko.observable(false);
+                self.expandAreaValue=ko.observable('header');
+                self.expandedValue=ko.observable(false);
+                self.disabledOptions = ko.observableArray([
+                    {id: 'true', value: 'true', label: 'true'},
+                    {id: 'false', value: 'false', label: 'false'}
+                ]);
+                self.expandAreaValues = ko.observableArray([
+                    {id: 'disclosureIcon', value: 'disclosureIcon', label: 'disclosureIcon'},
+                    {id: 'header', value: 'header', label: 'header'}
+                ]);
+                self.expandedOptions = ko.observableArray([
+                    {id: 'true', value: 'true', label: 'true'},
+                    {id: 'false', value: 'false', label: 'false'}
+                ]);
+                self.disabledUpdate = function(event, data) {
+                     alert("disabledValue : " +  data.value[0]);
+                    $('#inputButton').attr("disabled", false);
+                   // alert('received ' + data.value[0]);
+                    if (data.value[0] === "false")
+                    {
+                        $("#expandedValue").ojCombobox("option", "disabled", false);
+                        self.disabledValue(false);
+                         
+//                        $("#expandedValue").ojCombobox("option", "selected", false);
+                    }
+                    else
+                    {
+                        $("#expandedValue").ojCombobox("option", "disabled", true);
+                        self.disabledValue(true);
+                    }
+//                    var disabled = $( "#collapsiblePage" ).ojCollapsible( "option", "disabled" );
+//                    if(disabled === false)
+//                    {
+//                         $("#expandedValue").ojCombobox("option", "disabled", false);
+//                         // $("#expandedValue").ojCombobox("option", "selected", false);
+//                    }
+                    return true;
+                };
+                //this option when set to header, collapsible can be closed when clicked on header as well as icon
+                //when set to 'disclosureIcon', it can be collapsed only if clicked on the icon.
+                self.expandAreaUpdate=function(data,event){
+                    alert();
+                     //console.log(data.value[0]);
+                    $('#inputButton').attr("disabled", false);
+                    if (event.value[0] === "disclosureIcon")
+                        self.expandAreaValue('disclosureIcon');
+                    else
+                        self.expandAreaValue('header');
+                    return true;
+                 };
+                 self.expandedUpdate=function(event,data){
+                      var disabled = $( "#collapsiblePage" ).ojCollapsible( "option", "disabled" );
+                     // alert("expandedValue :" + data.value[0]);
+//                      if(disabled === true){
+//                          $("#expandedValue").ojCombobox("option", "disabled", true);
+//                          $("#expandedValue").ojCombobox("option", "selected", false);
+//                         // $('#expandedValue').attr("disabled", true);
+//                         self.expandedValue(false);  
+//                         return true;
+//                      }
+                     $('#inputButton').attr("disabled", false);
+                     //console.log(event.value[0]);
+                     console.log(data.value[0]);
+                     
+                    if (data.value[0] === "false")
+                        self.expandedValue(false);
+                    else 
+                        self.expandedValue(true);
+                    return true;                    
+                 };
+                self.optionCheck=function(data,event){
+               
+                      //alert($( "#collapsiblePage" ).ojCollapsible( "option", "disabled" ));
+                      //alert($( "#collapsiblePage" ).ojCollapsible( "option", "expanded" ));
+                     var disabled = $( "#collapsiblePage" ).ojCollapsible( "option", "disabled" );
+                     var expanded = $( "#collapsiblePage" ).ojCollapsible( "option", "expanded" );
+                     var expandedArea = $( "#collapsiblePage" ).ojCollapsible( "option", "expandArea" );
+                    $('#optionMethodheck').html("Disabled Value For Collapsible Is::\n\
+                    <span id='isDisableCheck' style='color:royalblue;' >" + self.disabledValue()+ "</span>\n\
+                        <h3 id='m' style='color:black;'>Expanded Value For Collapsible Is::  \n\
+                            <span style='color:royalblue'>" +self.expandedValue()+"</span>\n\
+                        </h3>\n\
+                        <h3 id='m' style='color:black;'>Expanded Area Value For Collapsible Is::  \n\
+                            <span style='color:royalblue'>" +self.expandAreaValue()+"</span>\n\
+                        </h3>" 
+                          );
+                    //  $('#inputButton').attr("disabled", true);
+                      var optionEvent=$('#expandedValue');
+                      console.log(optionEvent);
+                };
+
+            };
+                $("#collapsiblePage").on("ojbeforeexpand", function(event, ui) {
+                   // alert("Before Expand");
+                     console.log(event);
+                    $('#functionName1').html(" ojbeforeexpand");
+                    ;
+                });
+                $("#collapsiblePage").on("ojbeforecollapse", function(event, ui) {
+                    console.log(event);
+                    $('#functionName1').html(" ojbeforecollapse");
+                    ;
+                });
+                
+                $("#collapsiblePage").on("ojcollapse", function(event, ui) {
+                    $('#functionName2').html(" ojcollapse");
+                    ;
+                });
+                $("#collapsiblePage").on("ojexpand", function(event, ui) {
+                    $('#functionName2').html(" ojexpand");
+                     
+                });
+
+              $(document).ready(
+                        function()
+                        {
+                              ko.applyBindings(new CollapsibleModel(), document.getElementById('wrapperDiv'));
+                        }
+              );
+        });  

@@ -1,0 +1,193 @@
+@import "../../utilities/oj.utilities";
+
+$includeTabsClasses: $includeAllClasses !default;
+
+// include dependencies
+@if $includeTabsClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.jq.icons";
+
+@import "../../common/widgets/oj.common.tabs"; 
+
+@if $includeTabsClasses != false {
+  @include module-include-once("jq.tabs") {
+
+
+    /* tabs */
+    /* --------------------------------------------------------------- */
+
+    /*
+     * applied to the tabs
+     */
+    .oj-tabs {
+      @include ui-widget-content;
+      @include ui-corner-all;
+      padding: .2em;
+    }
+
+    /*
+     * applied to the Tab bar
+     */
+    .oj-tabs-nav {
+      @include ui-widget-header;
+      @include ui-corner-all;
+      padding: .2em .2em 0;
+    }
+
+    /*
+     * applied to tab header
+     */
+    .oj-tabs-anchor {
+      @include ui-state-default-link;
+    }
+
+    .oj-tabs-tab.oj-hover .oj-tabs-anchor {
+      @include ui-state-hover-link;
+    }
+
+    .oj-tabs-tab.oj-selected .oj-tabs-anchor {
+      @include ui-state-active-link;
+      cursor: text;
+    }
+
+    /*
+     * applied to the tab title text when it's disabled
+     */
+    .oj-tabs-tab.oj-disabled .oj-tabs-title {
+      opacity: $opacityDisabled;
+    }
+
+    /* need to set disabled color because oj-clickable-icon doesn't do that */
+    .oj-tabs-tab.oj-disabled .oj-tabs-title .oj-tabs-tab-icon {
+      opacity: $opacityDisabled;
+    }
+
+    .oj-tabs-tab {
+      @include ui-state-default;
+    }
+
+    .oj-tabs-tab.oj-selected,
+    .oj-tabs-tab.oj-selected.oj-hover {
+      @include ui-state-active;
+    }
+
+    .oj-tabs-tab.oj-hover {
+      @include ui-state-hover;
+    }
+
+    /*
+     * applied to the horizontal Tab
+     */
+    .oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab {
+      @include ui-corner-top;
+
+      // float:left  make conveyor wrap content instead truncation 
+      margin: 1px .2em 0 0;
+      padding: 0;
+
+      //override border setting ui-state-default
+      border-bottom-width: 0;
+    }
+
+    /*
+     * applied to the tab when it's selected
+     */
+    .oj-tabs-horizontal > .oj-tabs-nav-root .oj-tabs-tab.oj-selected {
+      // need 3px to cover the bottom border in the add/remove demo??
+      margin-bottom: -1px; 
+      padding-bottom: 1px;
+
+      //override border setting ui-state-active
+      border-bottom-width: 0;
+    }
+
+
+    /* vertical tabs */
+    /* --------------------------------------------------------------- */
+
+    .oj-tabs-vertical {
+      @include ui-corner-all;
+      padding: .2em;
+      border: 1px solid $tabsPanelBorderColor;
+    }
+
+    /*
+     * applied to the vertical Tab bar
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root {
+      padding: .2em 0 .2em .2em;
+    }
+
+    /*
+     * applied to the vertical Tab
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root .oj-tabs-tab {
+      margin: 0 0 .2em 0;
+      padding: 0;
+      @include oj-border-radius(0);
+
+      @include oj-ltr() {
+        @include ui-corner-left($slowOverride: false);
+        border-right-width: 0;
+      }
+      @include oj-rtl() {
+        @include ui-corner-right($slowOverride: false);
+        border-left-width: 0;
+      }
+
+      @include oj-border-radius-slowoverride();
+    }
+
+    /*
+     * applied to the vertical tab when it is selected
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root .oj-tabs-tab.oj-selected {
+
+      @include oj-ltr() {
+        margin-right: -1px; 
+        padding-right: 1px;
+        border-right-width: 0;
+      }
+      @include oj-rtl() {
+        margin-left: -1px; 
+        padding-left: 1px;
+        border-left-width: 0;
+      }
+      }
+
+    /*
+     * applied to the vertical tab header
+     */
+    .oj-tabs-vertical > .oj-tabs-nav-root .oj-tabs-anchor {
+      padding: 0.6rem 0.7rem 0.6rem 0.7rem;
+    }
+
+
+    /* close icon for tabs */
+    /* -----------------------------*/
+
+    /*
+     * close icon style
+     */
+    .oj-tabs-close-icon {
+      @extend .oj-fwk-icon-cross;
+//      margin-top: 5px; make li with close icon taller than li without
+      
+      cursor: pointer;
+      vertical-align: middle;
+
+      @include oj-ltr() {
+        margin-left: -4px;
+        padding-right: 4px; 
+      }
+      @include oj-rtl() {
+        margin-right: -4px;
+        padding-left: 4px; 
+      }
+    }
+
+  }
+}

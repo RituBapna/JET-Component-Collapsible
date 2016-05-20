@@ -1,0 +1,32 @@
+@import "../../utilities/oj.utilities";
+
+
+$includeDataGridClasses:      $includeAllClasses !default;
+
+// include dependencies
+@if $includeDataGridClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "oj.jq.icons";
+
+
+@import "../../common/widgets/oj.common.datagrid";
+
+@if $includeDataGridClasses != false {
+  @include module-include-once("jq.datagrid") {
+
+        //Alta uses the oj-fwk-icon-arrow03 for the sort icons whereas jq use oj-fwk-icon-arrow      
+      
+        /* Styling for the sort ascending icon */									
+        .oj-datagrid-sort-ascending-icon {
+            @extend .oj-fwk-icon-arrow-n;   
+        }
+        
+        /* Styling for the sort descending icon */									
+        .oj-datagrid-sort-descending-icon {
+            @extend .oj-fwk-icon-arrow-s;        
+        }
+
+  }
+}

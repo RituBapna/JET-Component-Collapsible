@@ -1,0 +1,44 @@
+@import "../../utilities/oj.utilities";  
+
+$includeTreeClasses:  $includeAllClasses !default;
+
+@import "../../common/helpers/oj.common.helpers"; 
+
+// include dependencies
+@if $includeTreeClasses != false {
+  $includeIconClasses: true !global;
+}
+
+@import "oj.alta.icons";
+
+
+@import "../../common/widgets/oj.common.tree";
+
+@if $includeTreeClasses != false  {
+  @include module-include-once("alta.tree") {
+
+    //Alta uses oj-fwk-icon-arrow03 for the expand/collapse icons, and jq uses oj-fwk-icon-arrow
+      
+    /* Styling for the collapsed icon */
+    .oj-tree-default .oj-tree-no-dots .oj-collapsed > ins.oj-tree-disc {
+        @include oj-ltr() {
+            @extend .oj-fwk-icon-arrow03-e;  
+        }
+        @include oj-rtl() {    
+            @extend .oj-fwk-icon-arrow03-w;  
+        }    
+    }
+	/* Styling for the expanded icon */
+    .oj-tree-default .oj-tree-no-dots .oj-expanded > ins.oj-tree-disc {
+        @include oj-ltr() {
+            @extend .oj-fwk-icon-arrow03-se;  
+        }
+        @include oj-rtl() {    
+            @extend .oj-fwk-icon-arrow03-sw;  
+        }    
+    }
+
+
+
+  }
+}

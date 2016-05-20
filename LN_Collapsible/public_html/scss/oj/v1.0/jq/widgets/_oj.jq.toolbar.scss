@@ -1,0 +1,21 @@
+@import "../../utilities/oj.utilities";
+
+$includeToolbarClasses: $includeAllClasses !default;
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "../../common/widgets/oj.common.toolbar"; 
+
+@if $includeToolbarClasses != false {
+  @include module-include-once("jq.toolbar") {
+
+
+
+    // keep oj-toolbar-no-chrome definition after oj-toolbar and oj-toolbars definitions
+    // so that last-one-wins.
+    /* Can be applied to the toolbar to remove the chrome (background and border) */
+    .oj-toolbar-no-chrome {
+        background-color: transparent;
+        border: 0;
+    }
+  }
+}

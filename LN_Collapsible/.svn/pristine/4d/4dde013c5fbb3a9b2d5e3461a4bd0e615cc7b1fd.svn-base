@@ -1,0 +1,17 @@
+@import "../../utilities/oj.utilities";
+
+$includeTreemapClasses:       $includeDvtClasses !default;
+
+// include dependencies
+@if $includeTreemapClasses != false {
+  $includeDvtBaseClasses:              true !global;
+}
+
+@import "../../common/helpers/oj.common.helpers"; 
+@import "oj.alta.dvt.base"; 
+@import "../../common/widgets/oj.common.dvt.treemap"; 
+
+@if $includeTreemapClasses != false  {
+  @include module-include-once("alta.treemap") {
+  }
+}
